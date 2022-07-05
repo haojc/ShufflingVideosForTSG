@@ -1,4 +1,4 @@
-# ToCVPR2022: Can Shuffling Video Benefit Temporal Bias Problem: A Novel Training Framework for Temporal Grounding
+# ToECCV2022: Can Shuffling Video Benefit Temporal Bias Problem: A Novel Training Framework for Temporal Grounding
 
 ## Installation
 We provide the environment file for anaconda.
@@ -9,21 +9,20 @@ conda env create -f environment.yml
 ```
 
 ## Dataset Preparation
-Sorry for that we cannot provide our features due to the space limitation of supplement materials and the double-blind policy.
-We will open our features after th review process of CVPR22.
+You can download our features for Charades-STA and ActivityNet Captions and the pretrained models of our method on re-divided splits by an anonymous box drive [link](https://app.box.com/s/t0e3uu8qhpvbpo70qheb7w7i1lj8frqc).
 
-For Charades-STA, you can download the i3d features from the implementation of [VSLNet](https://github.com/IsaacChanghau/VSLNet).
-But because they have modified their features recently, the downloaded features may do not fit to our pre-trained model.
-You can re-train the model using these features.
- 
-For ActivityNet Captions, you need to extract the i3d features from the original videos using an open implementation of [I3D](https://github.com/piergiaj/pytorch-i3d), with stride 16 and fps 16.
+(For ActivityNet Captions, we extract the i3d features from the original videos using an open implementation of [I3D](https://github.com/piergiaj/pytorch-i3d), with stride 16 and fps 16.)
 
-All the features should be the format of 'VIDEO_ID.npy'.
+Please put the video feature files 'VID.npy' into the directories data/Charades/i3d_feature and data/ANet/i3d_feature, respectively.
 
-Please put the features into the directory data/Charades/i3d_feature and data/ANet/i3d_feature.
+Please put the pretrianed models into the directories grounding/ckp/charades_cd and grounding/ckp/anet_cd, respectively.
 
 ## Quick Strat
+```
+conda activate HLTI
 cd grounding
+```
+
 
 ###Charades-CD
 
@@ -49,7 +48,34 @@ Evaluate:
 python test.py --gpu_id=0 --cfg anet_cd_i3d.yml --alias test
 ```
 
-##Models
+##About Pretrained Models
 
-Due the space limitation, we only provide the pre-trained model for Charades-CD in ckp/charades_cd/***.ckp.
-You can find the corresponding prediction results, parameter settting, and training/evaluation log files in this path for both datasets.
+You can find the corresponding prediction results, parameter setting, and evaluation result files in grounding/ckp for both datasets.
+
+## Baseline
+
+We also provide the implementation of the baseline.
+
+###Charades-CD
+
+Train:
+```
+python train_baseline.py --gpu_id=0 --cfg charades_cd_i3d.yml --alias one_name
+```
+Evaluate:
+```
+python test_baseline.py --gpu_id=0 --cfg charades_cd_i3d.yml --alias test
+```
+
+Please determine the model to be evaluated in the corresponding config file.
+
+###ActivityNet-CD
+
+Train:
+```
+python train_baseline.py --gpu_id=0 --cfg anet_cd_i3d.yml --alias one_name
+```
+Evaluate:
+```
+python test_baseline.py --gpu_id=0 --cfg anet_cd_i3d.yml --alias test
+```
