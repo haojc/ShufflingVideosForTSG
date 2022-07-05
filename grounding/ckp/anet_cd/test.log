@@ -1,0 +1,84 @@
+WARNING:inference(0):use checkpoint: runs/anet_cd/MDC_240T_i3d_VALval_G1_L1_D1_2/model/MDC_240T_i3d_VALval_G1_L1_D1_2_00022.ckp
+INFO:inference(0):************************************************************************************************************************
+warning: remove test(runs/inference) folder
+INFO:inference(0):Video length, 240 Sentence Length 25
+INFO:inference(0):test_ood, load captioning file, 2450 videos loaded
+INFO:inference(0):vfeat_fn sample_1to1_video_feat
+INFO:inference(0):testing:**********************************************************************************************************
+Model**************************************************************************************************************
+GMD(
+  (sentence_encoder): RNNEncoder(
+    (word_embed): Linear(in_features=300, out_features=300, bias=True)
+    (rnn_cell): BiLSTM(
+      (lstm): LSTM(300, 256, num_layers=2, batch_first=True, dropout=0.5, bidirectional=True)
+    )
+  )
+  (video_encoder): QueryAwareEncoder(
+    (blocks): ModuleList(
+      (0): rnn_recalibration_layer(
+        (rnn_cell): BiLSTM(
+          (lstm): LSTM(1024, 256, num_layers=2, batch_first=True, dropout=0.5, bidirectional=True)
+        )
+        (attention): SCDM_Attention(
+          (W_s): Linear(in_features=512, out_features=512, bias=False)
+          (W_a): Linear(in_features=512, out_features=512, bias=True)
+          (w): Linear(in_features=512, out_features=1, bias=False)
+        )
+        (sent_linear): Linear(in_features=512, out_features=512, bias=True)
+      )
+      (1): rnn_recalibration_layer(
+        (rnn_cell): BiLSTM(
+          (lstm): LSTM(512, 256, num_layers=2, batch_first=True, dropout=0.5, bidirectional=True)
+        )
+        (attention): SCDM_Attention(
+          (W_s): Linear(in_features=512, out_features=512, bias=False)
+          (W_a): Linear(in_features=512, out_features=512, bias=True)
+          (w): Linear(in_features=512, out_features=1, bias=False)
+        )
+        (sent_linear): Linear(in_features=512, out_features=512, bias=True)
+      )
+    )
+    (norm): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+  )
+  (CMI): VideoSentenceConcat()
+  (span_predictor): SpanPredictor_Boundary(
+    (predictor): MLP_predictor(
+      (start_mlp_1): Linear(in_features=1024, out_features=256, bias=True)
+      (start_mlp_2): Linear(in_features=256, out_features=1, bias=True)
+      (end_mlp_1): Linear(in_features=1024, out_features=256, bias=True)
+      (end_mlp_2): Linear(in_features=256, out_features=1, bias=True)
+    )
+  )
+  (csmm): VideoTextSemanticMatch(
+    (cross): VideoTextConcat()
+    (temporal): NoTemporal()
+    (predict): TwoLayerdMLP(
+      (predict): Sequential(
+        (0): Linear(in_features=1024, out_features=1024, bias=True)
+        (1): ReLU()
+        (2): Linear(in_features=1024, out_features=1, bias=True)
+      )
+    )
+  )
+  (fc_classifier_domain_video): Sequential(
+    (0): Linear(in_features=1024, out_features=1024, bias=True)
+    (1): ReLU()
+    (2): Linear(in_features=1024, out_features=2, bias=True)
+  )
+)
+load over. runs/anet_cd/MDC_240T_i3d_VALval_G1_L1_D1_2/model/MDC_240T_i3d_VALval_G1_L1_D1_2_00022.ckp
+Total %d sentences for training/testing 13578
+INFO:inference(0):test: epoch[000], batch[0000/0425], elapsed time=0.08s, loss: 8.514, miou: 0.313
+INFO:inference(0):test: epoch[000], batch[0100/0425], elapsed time=0.07s, loss: 8.918, miou: 0.345
+INFO:inference(0):test: epoch[000], batch[0200/0425], elapsed time=0.07s, loss: 7.406, miou: 0.362
+INFO:inference(0):test: epoch[000], batch[0300/0425], elapsed time=0.07s, loss: 7.339, miou: 0.276
+INFO:inference(0):test: epoch[000], batch[0400/0425], elapsed time=0.06s, loss: 7.665, miou: 0.311
+INFO:inference(0):epoch [000]: elapsed time:35.3330s, avg loss: 8.720, miou: 0.305
+INFO:inference(0):****************************************************************************************************
+=> Proposal loaded over. runs/inference/submits/inference_00000_anet_val.json
+	mIoU	 0.1	0.3	0.5	0.7	0.9
+
+ => 
+1 	 30.45 	 67.65	42.08	24.57	13.21	4.04
+mIoU	30.4500
+Training finished successfully!

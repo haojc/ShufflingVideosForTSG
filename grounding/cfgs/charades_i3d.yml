@@ -1,0 +1,20 @@
+train: 'charades'
+train_data: "../data/Charades/train.json"
+train_featpath: '../data/Charades/i3d_feature'
+
+valid: 'charades'
+val_data: '../data/Charades/test.json'
+valid_featpath: '../data/Charades/i3d_feature'
+
+test: 'charades'
+test_data: '../data/Charades/test.json'
+test_featpath: '../data/Charades/i3d_feature'
+
+wordtoix_path: '../data/Charades/words/wordtoix.npy'
+ixtoword_path: '../data/Charades/words/ixtoword.npy'
+word_fts_path: '../data/Charades/words/word_glove_fts_init.npy'
+feature_type: 'i3d'
+video_feature_dim: 1024
+sent_len: 15
+
+runs: runs/charades

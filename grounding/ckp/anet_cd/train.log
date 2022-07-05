@@ -1,0 +1,928 @@
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):************************************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):Video length, 240 Sentence Length 25
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train, load captioning file, 10984 videos loaded
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):vfeat_fn sample_1to1_video_feat
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):Video length, 240 Sentence Length 25
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):val, load captioning file, 746 videos loaded
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):vfeat_fn sample_1to1_video_feat
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):learning rate:**********************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):training on optimizing localizing
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):              |: lr 0.001, wd 0.0001
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):************************************************************************************************************************
+Model**************************************************************************************************************
+GMD(
+  (sentence_encoder): RNNEncoder(
+    (word_embed): Linear(in_features=300, out_features=300, bias=True)
+    (rnn_cell): BiLSTM(
+      (lstm): LSTM(300, 256, num_layers=2, batch_first=True, dropout=0.5, bidirectional=True)
+    )
+  )
+  (video_encoder): QueryAwareEncoder(
+    (blocks): ModuleList(
+      (0): rnn_recalibration_layer(
+        (rnn_cell): BiLSTM(
+          (lstm): LSTM(1024, 256, num_layers=2, batch_first=True, dropout=0.5, bidirectional=True)
+        )
+        (attention): SCDM_Attention(
+          (W_s): Linear(in_features=512, out_features=512, bias=False)
+          (W_a): Linear(in_features=512, out_features=512, bias=True)
+          (w): Linear(in_features=512, out_features=1, bias=False)
+        )
+        (sent_linear): Linear(in_features=512, out_features=512, bias=True)
+      )
+      (1): rnn_recalibration_layer(
+        (rnn_cell): BiLSTM(
+          (lstm): LSTM(512, 256, num_layers=2, batch_first=True, dropout=0.5, bidirectional=True)
+        )
+        (attention): SCDM_Attention(
+          (W_s): Linear(in_features=512, out_features=512, bias=False)
+          (W_a): Linear(in_features=512, out_features=512, bias=True)
+          (w): Linear(in_features=512, out_features=1, bias=False)
+        )
+        (sent_linear): Linear(in_features=512, out_features=512, bias=True)
+      )
+    )
+    (norm): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+  )
+  (CMI): VideoSentenceConcat()
+  (span_predictor): SpanPredictor_Boundary(
+    (predictor): MLP_predictor(
+      (start_mlp_1): Linear(in_features=1024, out_features=256, bias=True)
+      (start_mlp_2): Linear(in_features=256, out_features=1, bias=True)
+      (end_mlp_1): Linear(in_features=1024, out_features=256, bias=True)
+      (end_mlp_2): Linear(in_features=256, out_features=1, bias=True)
+    )
+  )
+  (csmm): VideoTextSemanticMatch(
+    (cross): VideoTextConcat()
+    (temporal): NoTemporal()
+    (predict): TwoLayerdMLP(
+      (predict): Sequential(
+        (0): Linear(in_features=1024, out_features=1024, bias=True)
+        (1): ReLU()
+        (2): Linear(in_features=1024, out_features=1, bias=True)
+      )
+    )
+  )
+  (fc_classifier_domain_video): Sequential(
+    (0): Linear(in_features=1024, out_features=1024, bias=True)
+    (1): ReLU()
+    (2): Linear(in_features=1024, out_features=2, bias=True)
+  )
+)
+Total %d sentences for training/testing 51415
+Total %d sentences for training/testing 3521
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[000], batch[0000/1607], elapsed time=0.49s, loss: 13.044, miou: 0.057, loss_g: 10.965, loss_intra: 1.363, loss_inter: 0.001, loss_d: 0.715
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[000], batch[0100/1607], elapsed time=0.40s, loss: 9.471, miou: 0.352, loss_g: 7.541, loss_intra: 1.232, loss_inter: 0.005, loss_d: 0.693
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[000], batch[0200/1607], elapsed time=0.42s, loss: 10.534, miou: 0.257, loss_g: 8.717, loss_intra: 1.121, loss_inter: 0.004, loss_d: 0.693
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[000], batch[0300/1607], elapsed time=0.40s, loss: 10.261, miou: 0.283, loss_g: 8.400, loss_intra: 1.166, loss_inter: 0.002, loss_d: 0.693
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[000], batch[0400/1607], elapsed time=0.42s, loss: 9.732, miou: 0.354, loss_g: 7.721, loss_intra: 1.316, loss_inter: 0.003, loss_d: 0.692
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[000], batch[0500/1607], elapsed time=0.40s, loss: 9.128, miou: 0.366, loss_g: 7.214, loss_intra: 1.220, loss_inter: 0.001, loss_d: 0.694
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[000], batch[0600/1607], elapsed time=0.41s, loss: 9.241, miou: 0.383, loss_g: 7.318, loss_intra: 1.228, loss_inter: 0.009, loss_d: 0.685
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[000], batch[0700/1607], elapsed time=0.41s, loss: 8.816, miou: 0.339, loss_g: 6.946, loss_intra: 1.172, loss_inter: 0.007, loss_d: 0.691
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[000], batch[0800/1607], elapsed time=0.42s, loss: 9.504, miou: 0.347, loss_g: 7.588, loss_intra: 1.216, loss_inter: 0.006, loss_d: 0.694
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[000], batch[0900/1607], elapsed time=0.41s, loss: 9.227, miou: 0.370, loss_g: 7.313, loss_intra: 1.211, loss_inter: 0.008, loss_d: 0.696
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[000], batch[1000/1607], elapsed time=0.41s, loss: 8.979, miou: 0.302, loss_g: 6.915, loss_intra: 1.362, loss_inter: 0.008, loss_d: 0.693
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[000], batch[1100/1607], elapsed time=0.41s, loss: 9.289, miou: 0.371, loss_g: 7.574, loss_intra: 1.021, loss_inter: 0.007, loss_d: 0.688
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[000], batch[1200/1607], elapsed time=0.41s, loss: 9.198, miou: 0.316, loss_g: 7.458, loss_intra: 1.038, loss_inter: 0.013, loss_d: 0.689
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[000], batch[1300/1607], elapsed time=0.41s, loss: 8.662, miou: 0.459, loss_g: 6.755, loss_intra: 1.210, loss_inter: 0.013, loss_d: 0.684
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[000], batch[1400/1607], elapsed time=0.40s, loss: 10.120, miou: 0.357, loss_g: 8.275, loss_intra: 1.151, loss_inter: 0.009, loss_d: 0.684
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[000], batch[1500/1607], elapsed time=0.41s, loss: 9.008, miou: 0.447, loss_g: 7.069, loss_intra: 1.249, loss_inter: 0.019, loss_d: 0.671
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[000], batch[1600/1607], elapsed time=0.41s, loss: 9.531, miou: 0.406, loss_g: 7.683, loss_intra: 1.155, loss_inter: 0.012, loss_d: 0.681
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):epoch [000]: elapsed time:672.05s, avg loss: 9.352, miou: 0.366, avg loss_g: 7.447, avg loss_intra: 1.207, avg loss_inter: 0.008, avg loss_d: 0.690,
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):loss statistics:
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):{0: 9.352}
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):validing:**********************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):valid: epoch[000], batch[0000/0056], elapsed time=0.22s, loss: 8.787, miou: 0.301, loss_g: 7.657, loss_m1: 1.116, loss_m2: 0.013
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):epoch [000]: elapsed time:13.2606s, avg loss: 8.359, miou: 0.384 avg loss_g: 7.150, avg loss_m1: 1.198, avg loss_m2: 0.012
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):mIoU statistics:
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):{0: 38.35}
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):Save model in runs/anet_cd/MDC_240T_i3d_VALval_G1_L1_D1_2/model/MDC_240T_i3d_VALval_G1_L1_D1_2_00000.ckp
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):learning rate:**********************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):training on optimizing localizing
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):              |: lr 0.001, wd 0.0001
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):************************************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[001], batch[0000/1607], elapsed time=0.50s, loss: 9.011, miou: 0.357, loss_g: 7.241, loss_intra: 1.098, loss_inter: 0.013, loss_d: 0.659
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[001], batch[0100/1607], elapsed time=0.40s, loss: 9.066, miou: 0.443, loss_g: 7.291, loss_intra: 1.062, loss_inter: 0.005, loss_d: 0.708
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[001], batch[0200/1607], elapsed time=0.41s, loss: 8.794, miou: 0.440, loss_g: 7.006, loss_intra: 1.067, loss_inter: 0.011, loss_d: 0.709
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[001], batch[0300/1607], elapsed time=0.41s, loss: 9.613, miou: 0.301, loss_g: 7.888, loss_intra: 1.048, loss_inter: 0.010, loss_d: 0.666
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[001], batch[0400/1607], elapsed time=0.40s, loss: 8.179, miou: 0.498, loss_g: 6.181, loss_intra: 1.278, loss_inter: 0.014, loss_d: 0.706
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[001], batch[0500/1607], elapsed time=0.42s, loss: 9.334, miou: 0.337, loss_g: 7.553, loss_intra: 1.109, loss_inter: 0.011, loss_d: 0.662
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[001], batch[0600/1607], elapsed time=0.41s, loss: 9.241, miou: 0.449, loss_g: 7.341, loss_intra: 1.231, loss_inter: 0.014, loss_d: 0.655
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[001], batch[0700/1607], elapsed time=0.41s, loss: 9.070, miou: 0.448, loss_g: 7.227, loss_intra: 1.177, loss_inter: 0.012, loss_d: 0.653
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[001], batch[0800/1607], elapsed time=0.41s, loss: 8.133, miou: 0.470, loss_g: 6.374, loss_intra: 1.147, loss_inter: 0.008, loss_d: 0.604
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[001], batch[0900/1607], elapsed time=0.41s, loss: 8.742, miou: 0.404, loss_g: 6.947, loss_intra: 1.193, loss_inter: 0.008, loss_d: 0.593
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[001], batch[1000/1607], elapsed time=0.42s, loss: 8.493, miou: 0.420, loss_g: 6.771, loss_intra: 1.002, loss_inter: 0.011, loss_d: 0.708
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[001], batch[1100/1607], elapsed time=0.41s, loss: 8.935, miou: 0.353, loss_g: 7.154, loss_intra: 1.178, loss_inter: 0.013, loss_d: 0.589
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[001], batch[1200/1607], elapsed time=0.40s, loss: 8.604, miou: 0.465, loss_g: 6.707, loss_intra: 1.233, loss_inter: 0.011, loss_d: 0.653
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[001], batch[1300/1607], elapsed time=0.41s, loss: 9.143, miou: 0.398, loss_g: 7.225, loss_intra: 1.248, loss_inter: 0.005, loss_d: 0.665
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[001], batch[1400/1607], elapsed time=0.41s, loss: 8.976, miou: 0.409, loss_g: 7.169, loss_intra: 1.166, loss_inter: 0.015, loss_d: 0.626
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[001], batch[1500/1607], elapsed time=0.41s, loss: 8.409, miou: 0.430, loss_g: 6.530, loss_intra: 1.243, loss_inter: 0.007, loss_d: 0.630
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[001], batch[1600/1607], elapsed time=0.43s, loss: 8.462, miou: 0.388, loss_g: 6.712, loss_intra: 1.086, loss_inter: 0.008, loss_d: 0.655
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):epoch [001]: elapsed time:674.05s, avg loss: 8.886, miou: 0.410, avg loss_g: 7.076, avg loss_intra: 1.140, avg loss_inter: 0.011, avg loss_d: 0.658,
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):loss statistics:
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):{0: 9.352, 1: 8.886}
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):validing:**********************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):valid: epoch[001], batch[0000/0056], elapsed time=0.27s, loss: 8.693, miou: 0.387, loss_g: 7.616, loss_m1: 1.068, loss_m2: 0.009
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):epoch [001]: elapsed time:14.9060s, avg loss: 8.202, miou: 0.425 avg loss_g: 7.049, avg loss_m1: 1.144, avg loss_m2: 0.008
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):mIoU statistics:
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):{0: 38.35, 1: 42.47}
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):Save model in runs/anet_cd/MDC_240T_i3d_VALval_G1_L1_D1_2/model/MDC_240T_i3d_VALval_G1_L1_D1_2_00001.ckp
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):learning rate:**********************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):training on optimizing localizing
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):              |: lr 0.001, wd 0.0001
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):************************************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[002], batch[0000/1607], elapsed time=0.47s, loss: 8.307, miou: 0.435, loss_g: 6.634, loss_intra: 1.056, loss_inter: 0.017, loss_d: 0.600
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[002], batch[0100/1607], elapsed time=0.40s, loss: 8.302, miou: 0.436, loss_g: 6.553, loss_intra: 1.057, loss_inter: 0.010, loss_d: 0.682
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[002], batch[0200/1607], elapsed time=0.42s, loss: 9.644, miou: 0.314, loss_g: 7.765, loss_intra: 1.203, loss_inter: 0.010, loss_d: 0.667
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[002], batch[0300/1607], elapsed time=0.41s, loss: 9.019, miou: 0.308, loss_g: 7.386, loss_intra: 0.971, loss_inter: 0.008, loss_d: 0.654
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[002], batch[0400/1607], elapsed time=0.41s, loss: 8.684, miou: 0.386, loss_g: 6.721, loss_intra: 1.292, loss_inter: 0.018, loss_d: 0.653
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[002], batch[0500/1607], elapsed time=0.42s, loss: 8.485, miou: 0.423, loss_g: 6.635, loss_intra: 1.183, loss_inter: 0.012, loss_d: 0.655
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[002], batch[0600/1607], elapsed time=0.41s, loss: 8.529, miou: 0.459, loss_g: 6.580, loss_intra: 1.348, loss_inter: 0.005, loss_d: 0.596
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[002], batch[0700/1607], elapsed time=0.41s, loss: 8.660, miou: 0.426, loss_g: 6.741, loss_intra: 1.270, loss_inter: 0.010, loss_d: 0.639
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[002], batch[0800/1607], elapsed time=0.41s, loss: 9.019, miou: 0.404, loss_g: 7.241, loss_intra: 1.076, loss_inter: 0.010, loss_d: 0.693
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[002], batch[0900/1607], elapsed time=0.41s, loss: 8.245, miou: 0.458, loss_g: 6.371, loss_intra: 1.189, loss_inter: 0.010, loss_d: 0.676
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[002], batch[1000/1607], elapsed time=0.41s, loss: 8.722, miou: 0.366, loss_g: 6.968, loss_intra: 1.071, loss_inter: 0.010, loss_d: 0.673
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[002], batch[1100/1607], elapsed time=0.41s, loss: 8.174, miou: 0.432, loss_g: 6.402, loss_intra: 1.130, loss_inter: 0.008, loss_d: 0.636
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[002], batch[1200/1607], elapsed time=0.41s, loss: 8.318, miou: 0.491, loss_g: 6.516, loss_intra: 1.155, loss_inter: 0.010, loss_d: 0.637
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[002], batch[1300/1607], elapsed time=0.41s, loss: 8.028, miou: 0.559, loss_g: 6.159, loss_intra: 1.284, loss_inter: 0.011, loss_d: 0.575
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[002], batch[1400/1607], elapsed time=0.41s, loss: 7.916, miou: 0.494, loss_g: 6.085, loss_intra: 1.149, loss_inter: 0.013, loss_d: 0.668
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[002], batch[1500/1607], elapsed time=0.41s, loss: 7.995, miou: 0.514, loss_g: 6.256, loss_intra: 1.081, loss_inter: 0.015, loss_d: 0.643
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[002], batch[1600/1607], elapsed time=0.41s, loss: 8.271, miou: 0.435, loss_g: 6.590, loss_intra: 1.049, loss_inter: 0.005, loss_d: 0.627
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):epoch [002]: elapsed time:672.79s, avg loss: 8.754, miou: 0.425, avg loss_g: 6.971, avg loss_intra: 1.125, avg loss_inter: 0.011, avg loss_d: 0.646,
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):loss statistics:
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):{0: 9.352, 1: 8.886, 2: 8.754}
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):validing:**********************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):valid: epoch[002], batch[0000/0056], elapsed time=0.21s, loss: 8.569, miou: 0.409, loss_g: 7.542, loss_m1: 1.018, loss_m2: 0.009
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):epoch [002]: elapsed time:13.8477s, avg loss: 8.151, miou: 0.433 avg loss_g: 7.002, avg loss_m1: 1.138, avg loss_m2: 0.011
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):mIoU statistics:
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):{0: 38.35, 1: 42.47, 2: 43.3}
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):Save model in runs/anet_cd/MDC_240T_i3d_VALval_G1_L1_D1_2/model/MDC_240T_i3d_VALval_G1_L1_D1_2_00002.ckp
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):learning rate:**********************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):training on optimizing localizing
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):              |: lr 0.001, wd 0.0001
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):************************************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[003], batch[0000/1607], elapsed time=0.50s, loss: 9.097, miou: 0.447, loss_g: 7.374, loss_intra: 1.073, loss_inter: 0.011, loss_d: 0.639
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[003], batch[0100/1607], elapsed time=0.41s, loss: 9.277, miou: 0.393, loss_g: 7.361, loss_intra: 1.240, loss_inter: 0.019, loss_d: 0.658
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[003], batch[0200/1607], elapsed time=0.41s, loss: 9.062, miou: 0.324, loss_g: 7.464, loss_intra: 0.955, loss_inter: 0.011, loss_d: 0.632
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[003], batch[0300/1607], elapsed time=0.41s, loss: 9.454, miou: 0.341, loss_g: 7.623, loss_intra: 1.194, loss_inter: 0.007, loss_d: 0.630
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[003], batch[0400/1607], elapsed time=0.42s, loss: 9.654, miou: 0.271, loss_g: 7.885, loss_intra: 1.075, loss_inter: 0.013, loss_d: 0.681
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[003], batch[0500/1607], elapsed time=0.41s, loss: 9.589, miou: 0.380, loss_g: 7.736, loss_intra: 1.169, loss_inter: 0.018, loss_d: 0.666
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[003], batch[0600/1607], elapsed time=0.41s, loss: 8.701, miou: 0.442, loss_g: 6.902, loss_intra: 1.155, loss_inter: 0.006, loss_d: 0.638
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[003], batch[0700/1607], elapsed time=0.41s, loss: 8.681, miou: 0.499, loss_g: 6.953, loss_intra: 1.158, loss_inter: 0.014, loss_d: 0.556
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[003], batch[0800/1607], elapsed time=0.42s, loss: 8.978, miou: 0.397, loss_g: 7.256, loss_intra: 1.047, loss_inter: 0.012, loss_d: 0.662
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[003], batch[0900/1607], elapsed time=0.41s, loss: 8.385, miou: 0.445, loss_g: 6.553, loss_intra: 1.154, loss_inter: 0.006, loss_d: 0.672
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[003], batch[1000/1607], elapsed time=0.42s, loss: 8.540, miou: 0.441, loss_g: 6.762, loss_intra: 1.132, loss_inter: 0.008, loss_d: 0.638
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[003], batch[1100/1607], elapsed time=0.42s, loss: 9.343, miou: 0.304, loss_g: 7.636, loss_intra: 1.039, loss_inter: 0.011, loss_d: 0.656
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[003], batch[1200/1607], elapsed time=0.42s, loss: 8.409, miou: 0.395, loss_g: 6.620, loss_intra: 1.126, loss_inter: 0.006, loss_d: 0.657
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[003], batch[1300/1607], elapsed time=0.43s, loss: 8.704, miou: 0.456, loss_g: 6.868, loss_intra: 1.151, loss_inter: 0.012, loss_d: 0.673
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[003], batch[1400/1607], elapsed time=0.42s, loss: 8.084, miou: 0.417, loss_g: 6.366, loss_intra: 1.074, loss_inter: 0.011, loss_d: 0.632
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[003], batch[1500/1607], elapsed time=0.41s, loss: 8.440, miou: 0.449, loss_g: 6.592, loss_intra: 1.180, loss_inter: 0.012, loss_d: 0.656
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[003], batch[1600/1607], elapsed time=0.41s, loss: 8.178, miou: 0.347, loss_g: 6.441, loss_intra: 1.121, loss_inter: 0.009, loss_d: 0.607
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):epoch [003]: elapsed time:673.33s, avg loss: 8.659, miou: 0.433, avg loss_g: 6.897, avg loss_intra: 1.112, avg loss_inter: 0.011, avg loss_d: 0.639,
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):loss statistics:
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):{0: 9.352, 1: 8.886, 2: 8.754, 3: 8.659}
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):validing:**********************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):valid: epoch[003], batch[0000/0056], elapsed time=0.22s, loss: 8.867, miou: 0.387, loss_g: 7.829, loss_m1: 1.029, loss_m2: 0.010
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):epoch [003]: elapsed time:13.3523s, avg loss: 8.124, miou: 0.438 avg loss_g: 6.988, avg loss_m1: 1.126, avg loss_m2: 0.010
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):mIoU statistics:
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):{0: 38.35, 1: 42.47, 2: 43.3, 3: 43.8}
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):Save model in runs/anet_cd/MDC_240T_i3d_VALval_G1_L1_D1_2/model/MDC_240T_i3d_VALval_G1_L1_D1_2_00003.ckp
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):learning rate:**********************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):training on optimizing localizing
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):              |: lr 0.001, wd 0.0001
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):************************************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[004], batch[0000/1607], elapsed time=0.47s, loss: 8.926, miou: 0.335, loss_g: 7.208, loss_intra: 1.077, loss_inter: 0.010, loss_d: 0.631
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[004], batch[0100/1607], elapsed time=0.42s, loss: 9.032, miou: 0.552, loss_g: 7.167, loss_intra: 1.207, loss_inter: 0.011, loss_d: 0.647
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[004], batch[0200/1607], elapsed time=0.41s, loss: 9.235, miou: 0.462, loss_g: 7.351, loss_intra: 1.228, loss_inter: 0.010, loss_d: 0.646
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[004], batch[0300/1607], elapsed time=0.41s, loss: 8.790, miou: 0.395, loss_g: 7.019, loss_intra: 1.141, loss_inter: 0.011, loss_d: 0.619
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[004], batch[0400/1607], elapsed time=0.41s, loss: 8.916, miou: 0.297, loss_g: 7.384, loss_intra: 0.919, loss_inter: 0.009, loss_d: 0.605
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[004], batch[0500/1607], elapsed time=0.41s, loss: 8.956, miou: 0.452, loss_g: 7.254, loss_intra: 1.028, loss_inter: 0.011, loss_d: 0.663
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[004], batch[0600/1607], elapsed time=0.41s, loss: 8.834, miou: 0.518, loss_g: 6.972, loss_intra: 1.181, loss_inter: 0.010, loss_d: 0.670
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[004], batch[0700/1607], elapsed time=0.40s, loss: 9.110, miou: 0.399, loss_g: 7.374, loss_intra: 1.034, loss_inter: 0.013, loss_d: 0.689
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[004], batch[0800/1607], elapsed time=0.41s, loss: 9.526, miou: 0.473, loss_g: 7.740, loss_intra: 1.130, loss_inter: 0.011, loss_d: 0.645
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[004], batch[0900/1607], elapsed time=0.41s, loss: 8.111, miou: 0.496, loss_g: 6.372, loss_intra: 1.157, loss_inter: 0.007, loss_d: 0.575
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[004], batch[1000/1607], elapsed time=0.41s, loss: 8.867, miou: 0.460, loss_g: 7.256, loss_intra: 0.995, loss_inter: 0.011, loss_d: 0.606
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[004], batch[1100/1607], elapsed time=0.42s, loss: 8.382, miou: 0.519, loss_g: 6.707, loss_intra: 1.073, loss_inter: 0.025, loss_d: 0.576
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[004], batch[1200/1607], elapsed time=0.41s, loss: 8.947, miou: 0.555, loss_g: 7.050, loss_intra: 1.245, loss_inter: 0.010, loss_d: 0.642
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[004], batch[1300/1607], elapsed time=0.40s, loss: 8.080, miou: 0.456, loss_g: 6.220, loss_intra: 1.206, loss_inter: 0.009, loss_d: 0.645
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[004], batch[1400/1607], elapsed time=0.41s, loss: 7.952, miou: 0.532, loss_g: 6.144, loss_intra: 1.187, loss_inter: 0.009, loss_d: 0.612
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[004], batch[1500/1607], elapsed time=0.41s, loss: 7.778, miou: 0.441, loss_g: 6.188, loss_intra: 0.958, loss_inter: 0.006, loss_d: 0.627
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[004], batch[1600/1607], elapsed time=0.41s, loss: 8.893, miou: 0.398, loss_g: 7.334, loss_intra: 0.946, loss_inter: 0.017, loss_d: 0.597
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):epoch [004]: elapsed time:673.74s, avg loss: 8.573, miou: 0.442, avg loss_g: 6.823, avg loss_intra: 1.103, avg loss_inter: 0.011, avg loss_d: 0.636,
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):loss statistics:
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):{0: 9.352, 1: 8.886, 2: 8.754, 3: 8.659, 4: 8.573}
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):validing:**********************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):valid: epoch[004], batch[0000/0056], elapsed time=0.24s, loss: 8.402, miou: 0.431, loss_g: 7.398, loss_m1: 0.998, loss_m2: 0.006
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):epoch [004]: elapsed time:13.6020s, avg loss: 7.978, miou: 0.445 avg loss_g: 6.851, avg loss_m1: 1.119, avg loss_m2: 0.008
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):mIoU statistics:
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):{0: 38.35, 1: 42.47, 2: 43.3, 3: 43.8, 4: 44.5}
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):Save model in runs/anet_cd/MDC_240T_i3d_VALval_G1_L1_D1_2/model/MDC_240T_i3d_VALval_G1_L1_D1_2_00004.ckp
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):learning rate:**********************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):training on optimizing localizing
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):              |: lr 0.001, wd 0.0001
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):************************************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[005], batch[0000/1607], elapsed time=0.50s, loss: 7.209, miou: 0.484, loss_g: 5.707, loss_intra: 0.909, loss_inter: 0.005, loss_d: 0.589
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[005], batch[0100/1607], elapsed time=0.41s, loss: 8.535, miou: 0.437, loss_g: 6.839, loss_intra: 0.996, loss_inter: 0.011, loss_d: 0.688
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[005], batch[0200/1607], elapsed time=0.40s, loss: 8.261, miou: 0.464, loss_g: 6.597, loss_intra: 1.043, loss_inter: 0.011, loss_d: 0.610
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[005], batch[0300/1607], elapsed time=0.41s, loss: 8.325, miou: 0.487, loss_g: 6.465, loss_intra: 1.223, loss_inter: 0.017, loss_d: 0.620
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[005], batch[0400/1607], elapsed time=0.41s, loss: 8.060, miou: 0.473, loss_g: 6.177, loss_intra: 1.152, loss_inter: 0.007, loss_d: 0.723
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[005], batch[0500/1607], elapsed time=0.41s, loss: 8.260, miou: 0.419, loss_g: 6.527, loss_intra: 1.039, loss_inter: 0.006, loss_d: 0.687
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[005], batch[0600/1607], elapsed time=0.40s, loss: 8.537, miou: 0.453, loss_g: 6.806, loss_intra: 1.061, loss_inter: 0.010, loss_d: 0.659
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[005], batch[0700/1607], elapsed time=0.41s, loss: 8.779, miou: 0.373, loss_g: 7.045, loss_intra: 1.064, loss_inter: 0.003, loss_d: 0.667
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[005], batch[0800/1607], elapsed time=0.41s, loss: 8.147, miou: 0.398, loss_g: 6.562, loss_intra: 0.938, loss_inter: 0.006, loss_d: 0.641
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[005], batch[0900/1607], elapsed time=0.41s, loss: 7.634, miou: 0.563, loss_g: 5.862, loss_intra: 1.106, loss_inter: 0.005, loss_d: 0.661
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[005], batch[1000/1607], elapsed time=0.43s, loss: 8.327, miou: 0.385, loss_g: 6.512, loss_intra: 1.118, loss_inter: 0.013, loss_d: 0.683
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[005], batch[1100/1607], elapsed time=0.41s, loss: 8.003, miou: 0.509, loss_g: 6.278, loss_intra: 1.099, loss_inter: 0.019, loss_d: 0.607
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[005], batch[1200/1607], elapsed time=0.41s, loss: 7.892, miou: 0.518, loss_g: 6.315, loss_intra: 0.935, loss_inter: 0.006, loss_d: 0.635
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[005], batch[1300/1607], elapsed time=0.40s, loss: 8.742, miou: 0.417, loss_g: 7.045, loss_intra: 1.015, loss_inter: 0.012, loss_d: 0.670
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[005], batch[1400/1607], elapsed time=0.41s, loss: 8.276, miou: 0.383, loss_g: 6.709, loss_intra: 0.957, loss_inter: 0.007, loss_d: 0.603
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[005], batch[1500/1607], elapsed time=0.41s, loss: 7.955, miou: 0.402, loss_g: 6.245, loss_intra: 1.101, loss_inter: 0.005, loss_d: 0.604
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[005], batch[1600/1607], elapsed time=0.41s, loss: 8.341, miou: 0.462, loss_g: 6.581, loss_intra: 1.091, loss_inter: 0.008, loss_d: 0.661
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):epoch [005]: elapsed time:672.66s, avg loss: 8.508, miou: 0.449, avg loss_g: 6.770, avg loss_intra: 1.094, avg loss_inter: 0.012, avg loss_d: 0.633,
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):loss statistics:
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):{0: 9.352, 1: 8.886, 2: 8.754, 3: 8.659, 4: 8.573, 5: 8.508}
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):validing:**********************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):valid: epoch[005], batch[0000/0056], elapsed time=0.22s, loss: 8.551, miou: 0.436, loss_g: 7.528, loss_m1: 1.011, loss_m2: 0.012
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):epoch [005]: elapsed time:13.2896s, avg loss: 7.972, miou: 0.454 avg loss_g: 6.852, avg loss_m1: 1.110, avg loss_m2: 0.010
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):mIoU statistics:
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):{0: 38.35, 1: 42.47, 2: 43.3, 3: 43.8, 4: 44.5, 5: 45.39}
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):Save model in runs/anet_cd/MDC_240T_i3d_VALval_G1_L1_D1_2/model/MDC_240T_i3d_VALval_G1_L1_D1_2_00005.ckp
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):learning rate:**********************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):training on optimizing localizing
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):              |: lr 0.001, wd 0.0001
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):************************************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[006], batch[0000/1607], elapsed time=0.48s, loss: 8.615, miou: 0.438, loss_g: 6.818, loss_intra: 1.131, loss_inter: 0.007, loss_d: 0.658
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[006], batch[0100/1607], elapsed time=0.41s, loss: 8.767, miou: 0.427, loss_g: 7.052, loss_intra: 1.066, loss_inter: 0.010, loss_d: 0.640
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[006], batch[0200/1607], elapsed time=0.42s, loss: 8.154, miou: 0.423, loss_g: 6.466, loss_intra: 1.044, loss_inter: 0.013, loss_d: 0.631
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[006], batch[0300/1607], elapsed time=0.41s, loss: 8.073, miou: 0.455, loss_g: 6.341, loss_intra: 1.105, loss_inter: 0.007, loss_d: 0.620
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[006], batch[0400/1607], elapsed time=0.41s, loss: 8.724, miou: 0.529, loss_g: 6.978, loss_intra: 1.081, loss_inter: 0.012, loss_d: 0.653
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[006], batch[0500/1607], elapsed time=0.41s, loss: 8.710, miou: 0.395, loss_g: 7.074, loss_intra: 0.953, loss_inter: 0.020, loss_d: 0.662
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[006], batch[0600/1607], elapsed time=0.41s, loss: 9.267, miou: 0.387, loss_g: 7.457, loss_intra: 1.156, loss_inter: 0.007, loss_d: 0.646
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[006], batch[0700/1607], elapsed time=0.42s, loss: 8.149, miou: 0.586, loss_g: 6.341, loss_intra: 1.153, loss_inter: 0.015, loss_d: 0.641
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[006], batch[0800/1607], elapsed time=0.40s, loss: 8.810, miou: 0.440, loss_g: 7.096, loss_intra: 1.093, loss_inter: 0.018, loss_d: 0.604
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[006], batch[0900/1607], elapsed time=0.41s, loss: 8.074, miou: 0.516, loss_g: 6.255, loss_intra: 1.173, loss_inter: 0.011, loss_d: 0.635
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[006], batch[1000/1607], elapsed time=0.41s, loss: 8.408, miou: 0.373, loss_g: 6.728, loss_intra: 1.044, loss_inter: 0.007, loss_d: 0.629
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[006], batch[1100/1607], elapsed time=0.41s, loss: 8.100, miou: 0.348, loss_g: 6.537, loss_intra: 0.867, loss_inter: 0.011, loss_d: 0.685
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[006], batch[1200/1607], elapsed time=0.41s, loss: 8.329, miou: 0.572, loss_g: 6.472, loss_intra: 1.124, loss_inter: 0.010, loss_d: 0.724
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[006], batch[1300/1607], elapsed time=0.41s, loss: 8.567, miou: 0.444, loss_g: 6.914, loss_intra: 1.017, loss_inter: 0.006, loss_d: 0.630
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[006], batch[1400/1607], elapsed time=0.41s, loss: 7.926, miou: 0.530, loss_g: 6.122, loss_intra: 1.142, loss_inter: 0.011, loss_d: 0.652
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[006], batch[1500/1607], elapsed time=0.41s, loss: 9.399, miou: 0.353, loss_g: 7.619, loss_intra: 1.134, loss_inter: 0.009, loss_d: 0.637
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[006], batch[1600/1607], elapsed time=0.41s, loss: 8.548, miou: 0.463, loss_g: 6.857, loss_intra: 1.046, loss_inter: 0.021, loss_d: 0.625
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):epoch [006]: elapsed time:673.11s, avg loss: 8.453, miou: 0.453, avg loss_g: 6.723, avg loss_intra: 1.088, avg loss_inter: 0.012, avg loss_d: 0.630,
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):loss statistics:
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):{0: 9.352, 1: 8.886, 2: 8.754, 3: 8.659, 4: 8.573, 5: 8.508, 6: 8.453}
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):validing:**********************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):valid: epoch[006], batch[0000/0056], elapsed time=0.22s, loss: 8.493, miou: 0.394, loss_g: 7.462, loss_m1: 1.022, loss_m2: 0.009
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):epoch [006]: elapsed time:13.4030s, avg loss: 7.959, miou: 0.440 avg loss_g: 6.834, avg loss_m1: 1.112, avg loss_m2: 0.013
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):mIoU statistics:
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):{0: 38.35, 1: 42.47, 2: 43.3, 3: 43.8, 4: 44.5, 5: 45.39, 6: 43.98}
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):Save model in runs/anet_cd/MDC_240T_i3d_VALval_G1_L1_D1_2/model/MDC_240T_i3d_VALval_G1_L1_D1_2_00006.ckp
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):learning rate:**********************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):training on optimizing localizing
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):              |: lr 0.001, wd 0.0001
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):************************************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[007], batch[0000/1607], elapsed time=0.50s, loss: 8.260, miou: 0.550, loss_g: 6.445, loss_intra: 1.183, loss_inter: 0.011, loss_d: 0.622
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[007], batch[0100/1607], elapsed time=0.41s, loss: 7.807, miou: 0.421, loss_g: 6.151, loss_intra: 0.980, loss_inter: 0.012, loss_d: 0.665
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[007], batch[0200/1607], elapsed time=0.43s, loss: 8.730, miou: 0.450, loss_g: 6.930, loss_intra: 1.139, loss_inter: 0.011, loss_d: 0.651
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[007], batch[0300/1607], elapsed time=0.41s, loss: 9.227, miou: 0.383, loss_g: 7.546, loss_intra: 1.084, loss_inter: 0.011, loss_d: 0.586
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[007], batch[0400/1607], elapsed time=0.40s, loss: 9.415, miou: 0.441, loss_g: 7.624, loss_intra: 1.144, loss_inter: 0.009, loss_d: 0.638
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[007], batch[0500/1607], elapsed time=0.41s, loss: 8.582, miou: 0.545, loss_g: 6.694, loss_intra: 1.205, loss_inter: 0.012, loss_d: 0.671
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[007], batch[0600/1607], elapsed time=0.41s, loss: 8.726, miou: 0.345, loss_g: 7.218, loss_intra: 0.896, loss_inter: 0.012, loss_d: 0.601
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[007], batch[0700/1607], elapsed time=0.40s, loss: 8.474, miou: 0.540, loss_g: 6.771, loss_intra: 1.028, loss_inter: 0.011, loss_d: 0.664
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[007], batch[0800/1607], elapsed time=0.40s, loss: 7.836, miou: 0.469, loss_g: 6.120, loss_intra: 1.086, loss_inter: 0.014, loss_d: 0.616
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[007], batch[0900/1607], elapsed time=0.42s, loss: 8.759, miou: 0.382, loss_g: 7.103, loss_intra: 0.983, loss_inter: 0.024, loss_d: 0.649
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[007], batch[1000/1607], elapsed time=0.41s, loss: 9.226, miou: 0.368, loss_g: 7.613, loss_intra: 0.988, loss_inter: 0.017, loss_d: 0.607
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[007], batch[1100/1607], elapsed time=0.41s, loss: 8.673, miou: 0.385, loss_g: 6.953, loss_intra: 1.045, loss_inter: 0.020, loss_d: 0.655
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[007], batch[1200/1607], elapsed time=0.41s, loss: 7.595, miou: 0.544, loss_g: 5.900, loss_intra: 1.074, loss_inter: 0.013, loss_d: 0.607
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[007], batch[1300/1607], elapsed time=0.40s, loss: 8.949, miou: 0.375, loss_g: 7.171, loss_intra: 1.093, loss_inter: 0.021, loss_d: 0.663
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[007], batch[1400/1607], elapsed time=0.41s, loss: 8.406, miou: 0.485, loss_g: 6.590, loss_intra: 1.185, loss_inter: 0.008, loss_d: 0.623
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[007], batch[1500/1607], elapsed time=0.40s, loss: 8.642, miou: 0.408, loss_g: 6.797, loss_intra: 1.201, loss_inter: 0.019, loss_d: 0.624
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[007], batch[1600/1607], elapsed time=0.41s, loss: 8.274, miou: 0.426, loss_g: 6.499, loss_intra: 1.113, loss_inter: 0.019, loss_d: 0.643
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):epoch [007]: elapsed time:673.05s, avg loss: 8.404, miou: 0.456, avg loss_g: 6.681, avg loss_intra: 1.082, avg loss_inter: 0.013, avg loss_d: 0.627,
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):loss statistics:
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):{0: 9.352, 1: 8.886, 2: 8.754, 3: 8.659, 4: 8.573, 5: 8.508, 6: 8.453, 7: 8.404}
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):validing:**********************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):valid: epoch[007], batch[0000/0056], elapsed time=0.23s, loss: 8.381, miou: 0.422, loss_g: 7.363, loss_m1: 1.004, loss_m2: 0.014
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):epoch [007]: elapsed time:13.2832s, avg loss: 7.893, miou: 0.453 avg loss_g: 6.782, avg loss_m1: 1.100, avg loss_m2: 0.012
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):mIoU statistics:
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):{0: 38.35, 1: 42.47, 2: 43.3, 3: 43.8, 4: 44.5, 5: 45.39, 6: 43.98, 7: 45.33}
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):Save model in runs/anet_cd/MDC_240T_i3d_VALval_G1_L1_D1_2/model/MDC_240T_i3d_VALval_G1_L1_D1_2_00007.ckp
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):learning rate:**********************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):training on optimizing localizing
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):              |: lr 0.001, wd 0.0001
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):************************************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[008], batch[0000/1607], elapsed time=0.49s, loss: 8.686, miou: 0.429, loss_g: 7.081, loss_intra: 0.993, loss_inter: 0.008, loss_d: 0.604
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[008], batch[0100/1607], elapsed time=0.42s, loss: 8.131, miou: 0.480, loss_g: 6.548, loss_intra: 1.027, loss_inter: 0.013, loss_d: 0.544
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[008], batch[0200/1607], elapsed time=0.41s, loss: 7.978, miou: 0.480, loss_g: 6.366, loss_intra: 0.995, loss_inter: 0.019, loss_d: 0.597
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[008], batch[0300/1607], elapsed time=0.41s, loss: 7.724, miou: 0.446, loss_g: 6.099, loss_intra: 0.961, loss_inter: 0.006, loss_d: 0.657
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[008], batch[0400/1607], elapsed time=0.42s, loss: 8.973, miou: 0.362, loss_g: 7.383, loss_intra: 0.970, loss_inter: 0.009, loss_d: 0.611
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[008], batch[0500/1607], elapsed time=0.40s, loss: 7.699, miou: 0.501, loss_g: 5.973, loss_intra: 1.114, loss_inter: 0.014, loss_d: 0.597
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[008], batch[0600/1607], elapsed time=0.41s, loss: 9.029, miou: 0.485, loss_g: 7.254, loss_intra: 1.118, loss_inter: 0.019, loss_d: 0.638
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[008], batch[0700/1607], elapsed time=0.42s, loss: 9.037, miou: 0.429, loss_g: 7.258, loss_intra: 1.103, loss_inter: 0.020, loss_d: 0.656
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[008], batch[0800/1607], elapsed time=0.41s, loss: 8.114, miou: 0.437, loss_g: 6.462, loss_intra: 1.034, loss_inter: 0.008, loss_d: 0.610
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[008], batch[0900/1607], elapsed time=0.41s, loss: 9.058, miou: 0.445, loss_g: 7.196, loss_intra: 1.186, loss_inter: 0.010, loss_d: 0.666
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[008], batch[1000/1607], elapsed time=0.41s, loss: 8.261, miou: 0.546, loss_g: 6.711, loss_intra: 0.987, loss_inter: 0.011, loss_d: 0.552
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[008], batch[1100/1607], elapsed time=0.41s, loss: 9.003, miou: 0.328, loss_g: 7.300, loss_intra: 1.065, loss_inter: 0.009, loss_d: 0.629
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[008], batch[1200/1607], elapsed time=0.44s, loss: 7.815, miou: 0.545, loss_g: 6.010, loss_intra: 1.093, loss_inter: 0.012, loss_d: 0.700
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[008], batch[1300/1607], elapsed time=0.41s, loss: 8.149, miou: 0.497, loss_g: 6.225, loss_intra: 1.293, loss_inter: 0.014, loss_d: 0.617
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[008], batch[1400/1607], elapsed time=0.40s, loss: 7.453, miou: 0.583, loss_g: 5.739, loss_intra: 1.140, loss_inter: 0.018, loss_d: 0.556
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[008], batch[1500/1607], elapsed time=0.42s, loss: 8.639, miou: 0.510, loss_g: 6.882, loss_intra: 1.141, loss_inter: 0.018, loss_d: 0.598
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[008], batch[1600/1607], elapsed time=0.41s, loss: 8.570, miou: 0.477, loss_g: 6.459, loss_intra: 1.443, loss_inter: 0.011, loss_d: 0.656
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):epoch [008]: elapsed time:673.03s, avg loss: 8.354, miou: 0.461, avg loss_g: 6.642, avg loss_intra: 1.074, avg loss_inter: 0.013, avg loss_d: 0.625,
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):loss statistics:
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):{0: 9.352, 1: 8.886, 2: 8.754, 3: 8.659, 4: 8.573, 5: 8.508, 6: 8.453, 7: 8.404, 8: 8.354}
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):validing:**********************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):valid: epoch[008], batch[0000/0056], elapsed time=0.22s, loss: 8.394, miou: 0.432, loss_g: 7.386, loss_m1: 0.998, loss_m2: 0.010
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):epoch [008]: elapsed time:13.3514s, avg loss: 7.871, miou: 0.453 avg loss_g: 6.759, avg loss_m1: 1.097, avg loss_m2: 0.015
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):mIoU statistics:
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):{0: 38.35, 1: 42.47, 2: 43.3, 3: 43.8, 4: 44.5, 5: 45.39, 6: 43.98, 7: 45.33, 8: 45.27}
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):Save model in runs/anet_cd/MDC_240T_i3d_VALval_G1_L1_D1_2/model/MDC_240T_i3d_VALval_G1_L1_D1_2_00008.ckp
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):learning rate:**********************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):training on optimizing localizing
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):              |: lr 0.001, wd 0.0001
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):************************************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[009], batch[0000/1607], elapsed time=0.50s, loss: 8.091, miou: 0.479, loss_g: 6.381, loss_intra: 1.089, loss_inter: 0.027, loss_d: 0.595
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[009], batch[0100/1607], elapsed time=0.41s, loss: 7.698, miou: 0.435, loss_g: 6.221, loss_intra: 0.822, loss_inter: 0.006, loss_d: 0.650
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[009], batch[0200/1607], elapsed time=0.42s, loss: 8.836, miou: 0.450, loss_g: 7.063, loss_intra: 1.097, loss_inter: 0.009, loss_d: 0.668
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[009], batch[0300/1607], elapsed time=0.44s, loss: 8.426, miou: 0.405, loss_g: 6.907, loss_intra: 0.888, loss_inter: 0.008, loss_d: 0.623
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[009], batch[0400/1607], elapsed time=0.41s, loss: 8.825, miou: 0.479, loss_g: 7.086, loss_intra: 1.096, loss_inter: 0.006, loss_d: 0.637
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[009], batch[0500/1607], elapsed time=0.40s, loss: 8.695, miou: 0.465, loss_g: 6.923, loss_intra: 1.154, loss_inter: 0.009, loss_d: 0.608
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[009], batch[0600/1607], elapsed time=0.41s, loss: 8.526, miou: 0.458, loss_g: 6.859, loss_intra: 1.004, loss_inter: 0.015, loss_d: 0.649
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[009], batch[0700/1607], elapsed time=0.41s, loss: 8.995, miou: 0.406, loss_g: 7.270, loss_intra: 1.055, loss_inter: 0.014, loss_d: 0.655
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[009], batch[0800/1607], elapsed time=0.41s, loss: 7.873, miou: 0.455, loss_g: 6.104, loss_intra: 1.062, loss_inter: 0.011, loss_d: 0.697
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[009], batch[0900/1607], elapsed time=0.41s, loss: 7.760, miou: 0.413, loss_g: 6.108, loss_intra: 1.060, loss_inter: 0.008, loss_d: 0.585
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[009], batch[1000/1607], elapsed time=0.41s, loss: 8.178, miou: 0.548, loss_g: 6.391, loss_intra: 1.164, loss_inter: 0.017, loss_d: 0.605
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[009], batch[1100/1607], elapsed time=0.41s, loss: 9.061, miou: 0.452, loss_g: 7.344, loss_intra: 1.069, loss_inter: 0.017, loss_d: 0.631
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[009], batch[1200/1607], elapsed time=0.42s, loss: 7.793, miou: 0.491, loss_g: 6.041, loss_intra: 1.117, loss_inter: 0.016, loss_d: 0.619
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[009], batch[1300/1607], elapsed time=0.41s, loss: 7.987, miou: 0.415, loss_g: 6.303, loss_intra: 1.036, loss_inter: 0.014, loss_d: 0.634
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[009], batch[1400/1607], elapsed time=0.41s, loss: 8.177, miou: 0.473, loss_g: 6.339, loss_intra: 1.161, loss_inter: 0.016, loss_d: 0.662
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[009], batch[1500/1607], elapsed time=0.41s, loss: 8.789, miou: 0.392, loss_g: 6.996, loss_intra: 1.081, loss_inter: 0.007, loss_d: 0.705
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[009], batch[1600/1607], elapsed time=0.41s, loss: 8.159, miou: 0.496, loss_g: 6.541, loss_intra: 0.974, loss_inter: 0.017, loss_d: 0.628
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):epoch [009]: elapsed time:674.80s, avg loss: 8.311, miou: 0.466, avg loss_g: 6.603, avg loss_intra: 1.071, avg loss_inter: 0.013, avg loss_d: 0.624,
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):loss statistics:
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):{0: 9.352, 1: 8.886, 2: 8.754, 3: 8.659, 4: 8.573, 5: 8.508, 6: 8.453, 7: 8.404, 8: 8.354, 9: 8.311}
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):validing:**********************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):valid: epoch[009], batch[0000/0056], elapsed time=0.24s, loss: 8.574, miou: 0.415, loss_g: 7.548, loss_m1: 1.015, loss_m2: 0.011
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):epoch [009]: elapsed time:13.4958s, avg loss: 7.956, miou: 0.445 avg loss_g: 6.828, avg loss_m1: 1.113, avg loss_m2: 0.015
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):mIoU statistics:
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):{0: 38.35, 1: 42.47, 2: 43.3, 3: 43.8, 4: 44.5, 5: 45.39, 6: 43.98, 7: 45.33, 8: 45.27, 9: 44.53}
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):Save model in runs/anet_cd/MDC_240T_i3d_VALval_G1_L1_D1_2/model/MDC_240T_i3d_VALval_G1_L1_D1_2_00009.ckp
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):learning rate:**********************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):training on optimizing localizing
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):              |: lr 0.001, wd 0.0001
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):************************************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[010], batch[0000/1607], elapsed time=0.49s, loss: 8.032, miou: 0.462, loss_g: 6.445, loss_intra: 1.024, loss_inter: 0.017, loss_d: 0.546
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[010], batch[0100/1607], elapsed time=0.41s, loss: 9.367, miou: 0.324, loss_g: 7.740, loss_intra: 0.959, loss_inter: 0.009, loss_d: 0.660
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[010], batch[0200/1607], elapsed time=0.40s, loss: 6.996, miou: 0.559, loss_g: 5.267, loss_intra: 1.117, loss_inter: 0.011, loss_d: 0.600
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[010], batch[0300/1607], elapsed time=0.41s, loss: 8.303, miou: 0.551, loss_g: 6.381, loss_intra: 1.292, loss_inter: 0.010, loss_d: 0.621
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[010], batch[0400/1607], elapsed time=0.42s, loss: 7.611, miou: 0.440, loss_g: 6.110, loss_intra: 0.934, loss_inter: 0.008, loss_d: 0.559
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[010], batch[0500/1607], elapsed time=0.40s, loss: 7.632, miou: 0.506, loss_g: 5.904, loss_intra: 1.077, loss_inter: 0.010, loss_d: 0.642
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[010], batch[0600/1607], elapsed time=0.42s, loss: 7.513, miou: 0.460, loss_g: 5.828, loss_intra: 1.067, loss_inter: 0.008, loss_d: 0.610
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[010], batch[0700/1607], elapsed time=0.41s, loss: 8.199, miou: 0.483, loss_g: 6.690, loss_intra: 0.925, loss_inter: 0.014, loss_d: 0.571
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[010], batch[0800/1607], elapsed time=0.42s, loss: 8.634, miou: 0.492, loss_g: 7.054, loss_intra: 0.966, loss_inter: 0.015, loss_d: 0.598
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[010], batch[0900/1607], elapsed time=0.40s, loss: 7.218, miou: 0.507, loss_g: 5.713, loss_intra: 0.926, loss_inter: 0.008, loss_d: 0.571
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[010], batch[1000/1607], elapsed time=0.41s, loss: 8.105, miou: 0.567, loss_g: 6.322, loss_intra: 1.184, loss_inter: 0.025, loss_d: 0.574
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[010], batch[1100/1607], elapsed time=0.42s, loss: 7.338, miou: 0.640, loss_g: 5.713, loss_intra: 1.025, loss_inter: 0.024, loss_d: 0.575
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[010], batch[1200/1607], elapsed time=0.41s, loss: 8.548, miou: 0.407, loss_g: 6.882, loss_intra: 1.042, loss_inter: 0.011, loss_d: 0.613
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[010], batch[1300/1607], elapsed time=0.41s, loss: 8.556, miou: 0.461, loss_g: 6.898, loss_intra: 1.074, loss_inter: 0.019, loss_d: 0.564
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[010], batch[1400/1607], elapsed time=0.41s, loss: 8.156, miou: 0.430, loss_g: 6.462, loss_intra: 1.067, loss_inter: 0.009, loss_d: 0.619
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[010], batch[1500/1607], elapsed time=0.41s, loss: 8.074, miou: 0.549, loss_g: 6.388, loss_intra: 1.129, loss_inter: 0.015, loss_d: 0.541
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[010], batch[1600/1607], elapsed time=0.40s, loss: 7.947, miou: 0.529, loss_g: 6.223, loss_intra: 1.119, loss_inter: 0.016, loss_d: 0.588
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):epoch [010]: elapsed time:675.85s, avg loss: 8.267, miou: 0.469, avg loss_g: 6.567, avg loss_intra: 1.065, avg loss_inter: 0.013, avg loss_d: 0.622,
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):loss statistics:
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):{0: 9.352, 1: 8.886, 2: 8.754, 3: 8.659, 4: 8.573, 5: 8.508, 6: 8.453, 7: 8.404, 8: 8.354, 9: 8.311, 10: 8.267}
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):validing:**********************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):valid: epoch[010], batch[0000/0056], elapsed time=0.23s, loss: 8.501, miou: 0.426, loss_g: 7.482, loss_m1: 1.007, loss_m2: 0.012
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):epoch [010]: elapsed time:13.2800s, avg loss: 7.862, miou: 0.458 avg loss_g: 6.757, avg loss_m1: 1.093, avg loss_m2: 0.012
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):mIoU statistics:
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):{0: 38.35, 1: 42.47, 2: 43.3, 3: 43.8, 4: 44.5, 5: 45.39, 6: 43.98, 7: 45.33, 8: 45.27, 9: 44.53, 10: 45.78}
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):Save model in runs/anet_cd/MDC_240T_i3d_VALval_G1_L1_D1_2/model/MDC_240T_i3d_VALval_G1_L1_D1_2_00010.ckp
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):learning rate:**********************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):training on optimizing localizing
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):              |: lr 0.001, wd 0.0001
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):************************************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[011], batch[0000/1607], elapsed time=0.47s, loss: 9.180, miou: 0.398, loss_g: 7.309, loss_intra: 1.148, loss_inter: 0.021, loss_d: 0.702
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[011], batch[0100/1607], elapsed time=0.41s, loss: 7.867, miou: 0.491, loss_g: 6.133, loss_intra: 1.122, loss_inter: 0.011, loss_d: 0.600
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[011], batch[0200/1607], elapsed time=0.40s, loss: 8.446, miou: 0.500, loss_g: 6.633, loss_intra: 1.143, loss_inter: 0.023, loss_d: 0.647
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[011], batch[0300/1607], elapsed time=0.41s, loss: 8.415, miou: 0.601, loss_g: 6.693, loss_intra: 1.092, loss_inter: 0.017, loss_d: 0.612
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[011], batch[0400/1607], elapsed time=0.42s, loss: 8.034, miou: 0.432, loss_g: 6.563, loss_intra: 0.886, loss_inter: 0.008, loss_d: 0.577
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[011], batch[0500/1607], elapsed time=0.42s, loss: 7.906, miou: 0.500, loss_g: 6.219, loss_intra: 1.063, loss_inter: 0.016, loss_d: 0.608
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[011], batch[0600/1607], elapsed time=0.41s, loss: 7.812, miou: 0.473, loss_g: 6.151, loss_intra: 1.000, loss_inter: 0.013, loss_d: 0.647
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[011], batch[0700/1607], elapsed time=0.40s, loss: 7.828, miou: 0.493, loss_g: 6.025, loss_intra: 1.123, loss_inter: 0.008, loss_d: 0.672
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[011], batch[0800/1607], elapsed time=0.42s, loss: 8.790, miou: 0.471, loss_g: 7.172, loss_intra: 1.029, loss_inter: 0.017, loss_d: 0.572
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[011], batch[0900/1607], elapsed time=0.41s, loss: 7.781, miou: 0.455, loss_g: 5.855, loss_intra: 1.232, loss_inter: 0.016, loss_d: 0.679
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[011], batch[1000/1607], elapsed time=0.41s, loss: 8.762, miou: 0.355, loss_g: 7.090, loss_intra: 1.028, loss_inter: 0.013, loss_d: 0.631
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[011], batch[1100/1607], elapsed time=0.41s, loss: 8.146, miou: 0.543, loss_g: 6.352, loss_intra: 1.172, loss_inter: 0.013, loss_d: 0.609
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[011], batch[1200/1607], elapsed time=0.41s, loss: 8.357, miou: 0.376, loss_g: 6.777, loss_intra: 0.970, loss_inter: 0.012, loss_d: 0.599
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[011], batch[1300/1607], elapsed time=0.41s, loss: 7.478, miou: 0.378, loss_g: 5.794, loss_intra: 1.055, loss_inter: 0.012, loss_d: 0.617
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[011], batch[1400/1607], elapsed time=0.42s, loss: 7.948, miou: 0.594, loss_g: 6.183, loss_intra: 1.135, loss_inter: 0.012, loss_d: 0.617
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[011], batch[1500/1607], elapsed time=0.40s, loss: 7.600, miou: 0.461, loss_g: 5.839, loss_intra: 1.147, loss_inter: 0.013, loss_d: 0.600
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[011], batch[1600/1607], elapsed time=0.41s, loss: 7.552, miou: 0.448, loss_g: 5.877, loss_intra: 1.029, loss_inter: 0.009, loss_d: 0.637
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):epoch [011]: elapsed time:676.44s, avg loss: 8.222, miou: 0.472, avg loss_g: 6.530, avg loss_intra: 1.060, avg loss_inter: 0.013, avg loss_d: 0.619,
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):loss statistics:
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):{0: 9.352, 1: 8.886, 2: 8.754, 3: 8.659, 4: 8.573, 5: 8.508, 6: 8.453, 7: 8.404, 8: 8.354, 9: 8.311, 10: 8.267, 11: 8.222}
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):validing:**********************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):valid: epoch[011], batch[0000/0056], elapsed time=0.21s, loss: 8.354, miou: 0.414, loss_g: 7.353, loss_m1: 0.989, loss_m2: 0.012
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):epoch [011]: elapsed time:13.4364s, avg loss: 7.853, miou: 0.464 avg loss_g: 6.749, avg loss_m1: 1.093, avg loss_m2: 0.011
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):mIoU statistics:
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):{0: 38.35, 1: 42.47, 2: 43.3, 3: 43.8, 4: 44.5, 5: 45.39, 6: 43.98, 7: 45.33, 8: 45.27, 9: 44.53, 10: 45.78, 11: 46.44}
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):Save model in runs/anet_cd/MDC_240T_i3d_VALval_G1_L1_D1_2/model/MDC_240T_i3d_VALval_G1_L1_D1_2_00011.ckp
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):learning rate:**********************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):training on optimizing localizing
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):              |: lr 0.001, wd 0.0001
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):************************************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[012], batch[0000/1607], elapsed time=0.47s, loss: 7.752, miou: 0.479, loss_g: 6.058, loss_intra: 1.088, loss_inter: 0.012, loss_d: 0.593
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[012], batch[0100/1607], elapsed time=0.41s, loss: 7.542, miou: 0.463, loss_g: 5.964, loss_intra: 0.966, loss_inter: 0.017, loss_d: 0.594
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[012], batch[0200/1607], elapsed time=0.41s, loss: 8.459, miou: 0.403, loss_g: 6.658, loss_intra: 1.135, loss_inter: 0.011, loss_d: 0.656
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[012], batch[0300/1607], elapsed time=0.41s, loss: 8.416, miou: 0.434, loss_g: 6.815, loss_intra: 0.989, loss_inter: 0.011, loss_d: 0.602
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[012], batch[0400/1607], elapsed time=0.41s, loss: 9.316, miou: 0.405, loss_g: 7.537, loss_intra: 1.096, loss_inter: 0.019, loss_d: 0.664
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[012], batch[0500/1607], elapsed time=0.40s, loss: 7.707, miou: 0.364, loss_g: 6.117, loss_intra: 0.963, loss_inter: 0.010, loss_d: 0.617
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[012], batch[0600/1607], elapsed time=0.41s, loss: 8.307, miou: 0.470, loss_g: 6.534, loss_intra: 1.148, loss_inter: 0.021, loss_d: 0.604
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[012], batch[0700/1607], elapsed time=0.41s, loss: 8.091, miou: 0.437, loss_g: 6.526, loss_intra: 0.930, loss_inter: 0.011, loss_d: 0.624
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[012], batch[0800/1607], elapsed time=0.41s, loss: 8.798, miou: 0.473, loss_g: 7.147, loss_intra: 1.005, loss_inter: 0.016, loss_d: 0.630
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[012], batch[0900/1607], elapsed time=0.41s, loss: 8.102, miou: 0.508, loss_g: 6.375, loss_intra: 1.104, loss_inter: 0.017, loss_d: 0.606
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[012], batch[1000/1607], elapsed time=0.41s, loss: 9.157, miou: 0.459, loss_g: 7.468, loss_intra: 0.969, loss_inter: 0.047, loss_d: 0.672
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[012], batch[1100/1607], elapsed time=0.41s, loss: 7.113, miou: 0.475, loss_g: 5.452, loss_intra: 1.040, loss_inter: 0.013, loss_d: 0.608
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[012], batch[1200/1607], elapsed time=0.41s, loss: 8.057, miou: 0.504, loss_g: 6.410, loss_intra: 1.035, loss_inter: 0.009, loss_d: 0.604
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[012], batch[1300/1607], elapsed time=0.41s, loss: 7.746, miou: 0.540, loss_g: 6.018, loss_intra: 1.056, loss_inter: 0.005, loss_d: 0.667
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[012], batch[1400/1607], elapsed time=0.41s, loss: 8.415, miou: 0.518, loss_g: 6.645, loss_intra: 1.145, loss_inter: 0.014, loss_d: 0.611
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[012], batch[1500/1607], elapsed time=0.41s, loss: 9.497, miou: 0.420, loss_g: 7.740, loss_intra: 1.144, loss_inter: 0.020, loss_d: 0.593
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[012], batch[1600/1607], elapsed time=0.41s, loss: 7.937, miou: 0.535, loss_g: 6.271, loss_intra: 1.066, loss_inter: 0.010, loss_d: 0.590
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):epoch [012]: elapsed time:675.75s, avg loss: 8.177, miou: 0.476, avg loss_g: 6.493, avg loss_intra: 1.054, avg loss_inter: 0.014, avg loss_d: 0.617,
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):loss statistics:
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):{0: 9.352, 1: 8.886, 2: 8.754, 3: 8.659, 4: 8.573, 5: 8.508, 6: 8.453, 7: 8.404, 8: 8.354, 9: 8.311, 10: 8.267, 11: 8.222, 12: 8.177}
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):validing:**********************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):valid: epoch[012], batch[0000/0056], elapsed time=0.20s, loss: 8.441, miou: 0.394, loss_g: 7.415, loss_m1: 1.007, loss_m2: 0.020
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):epoch [012]: elapsed time:13.4958s, avg loss: 7.877, miou: 0.457 avg loss_g: 6.760, avg loss_m1: 1.102, avg loss_m2: 0.015
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):mIoU statistics:
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):{0: 38.35, 1: 42.47, 2: 43.3, 3: 43.8, 4: 44.5, 5: 45.39, 6: 43.98, 7: 45.33, 8: 45.27, 9: 44.53, 10: 45.78, 11: 46.44, 12: 45.71}
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):Save model in runs/anet_cd/MDC_240T_i3d_VALval_G1_L1_D1_2/model/MDC_240T_i3d_VALval_G1_L1_D1_2_00012.ckp
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):learning rate:**********************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):training on optimizing localizing
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):              |: lr 0.001, wd 0.0001
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):************************************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[013], batch[0000/1607], elapsed time=0.48s, loss: 7.708, miou: 0.421, loss_g: 6.100, loss_intra: 0.937, loss_inter: 0.018, loss_d: 0.652
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[013], batch[0100/1607], elapsed time=0.41s, loss: 8.528, miou: 0.484, loss_g: 6.869, loss_intra: 0.997, loss_inter: 0.010, loss_d: 0.653
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[013], batch[0200/1607], elapsed time=0.41s, loss: 8.384, miou: 0.468, loss_g: 6.789, loss_intra: 0.953, loss_inter: 0.008, loss_d: 0.633
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[013], batch[0300/1607], elapsed time=0.42s, loss: 8.682, miou: 0.484, loss_g: 6.916, loss_intra: 1.103, loss_inter: 0.019, loss_d: 0.644
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[013], batch[0400/1607], elapsed time=0.42s, loss: 7.815, miou: 0.538, loss_g: 6.149, loss_intra: 1.023, loss_inter: 0.016, loss_d: 0.627
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[013], batch[0500/1607], elapsed time=0.43s, loss: 7.687, miou: 0.432, loss_g: 6.195, loss_intra: 0.938, loss_inter: 0.023, loss_d: 0.531
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[013], batch[0600/1607], elapsed time=0.41s, loss: 9.236, miou: 0.494, loss_g: 7.433, loss_intra: 1.191, loss_inter: 0.005, loss_d: 0.607
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[013], batch[0700/1607], elapsed time=0.42s, loss: 8.722, miou: 0.549, loss_g: 6.908, loss_intra: 1.189, loss_inter: 0.015, loss_d: 0.611
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[013], batch[0800/1607], elapsed time=0.41s, loss: 8.016, miou: 0.445, loss_g: 6.338, loss_intra: 1.013, loss_inter: 0.006, loss_d: 0.659
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[013], batch[0900/1607], elapsed time=0.41s, loss: 8.111, miou: 0.392, loss_g: 6.591, loss_intra: 0.955, loss_inter: 0.013, loss_d: 0.552
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[013], batch[1000/1607], elapsed time=0.41s, loss: 7.619, miou: 0.523, loss_g: 5.892, loss_intra: 1.067, loss_inter: 0.008, loss_d: 0.651
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[013], batch[1100/1607], elapsed time=0.41s, loss: 8.771, miou: 0.475, loss_g: 6.974, loss_intra: 1.140, loss_inter: 0.020, loss_d: 0.638
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[013], batch[1200/1607], elapsed time=0.41s, loss: 7.544, miou: 0.474, loss_g: 6.003, loss_intra: 0.909, loss_inter: 0.008, loss_d: 0.623
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[013], batch[1300/1607], elapsed time=0.41s, loss: 7.801, miou: 0.495, loss_g: 6.064, loss_intra: 1.124, loss_inter: 0.015, loss_d: 0.598
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[013], batch[1400/1607], elapsed time=0.41s, loss: 7.903, miou: 0.491, loss_g: 6.270, loss_intra: 1.039, loss_inter: 0.009, loss_d: 0.585
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[013], batch[1500/1607], elapsed time=0.41s, loss: 8.825, miou: 0.520, loss_g: 6.966, loss_intra: 1.183, loss_inter: 0.015, loss_d: 0.661
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[013], batch[1600/1607], elapsed time=0.41s, loss: 8.479, miou: 0.544, loss_g: 6.812, loss_intra: 1.034, loss_inter: 0.008, loss_d: 0.624
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):epoch [013]: elapsed time:676.49s, avg loss: 8.141, miou: 0.479, avg loss_g: 6.464, avg loss_intra: 1.048, avg loss_inter: 0.013, avg loss_d: 0.616,
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):loss statistics:
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):{0: 9.352, 1: 8.886, 2: 8.754, 3: 8.659, 4: 8.573, 5: 8.508, 6: 8.453, 7: 8.404, 8: 8.354, 9: 8.311, 10: 8.267, 11: 8.222, 12: 8.177, 13: 8.141}
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):validing:**********************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):valid: epoch[013], batch[0000/0056], elapsed time=0.21s, loss: 8.513, miou: 0.427, loss_g: 7.513, loss_m1: 0.988, loss_m2: 0.012
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):epoch [013]: elapsed time:13.3668s, avg loss: 7.915, miou: 0.468 avg loss_g: 6.808, avg loss_m1: 1.094, avg loss_m2: 0.014
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):mIoU statistics:
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):{0: 38.35, 1: 42.47, 2: 43.3, 3: 43.8, 4: 44.5, 5: 45.39, 6: 43.98, 7: 45.33, 8: 45.27, 9: 44.53, 10: 45.78, 11: 46.44, 12: 45.71, 13: 46.75}
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):Save model in runs/anet_cd/MDC_240T_i3d_VALval_G1_L1_D1_2/model/MDC_240T_i3d_VALval_G1_L1_D1_2_00013.ckp
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):learning rate:**********************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):training on optimizing localizing
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):              |: lr 0.001, wd 0.0001
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):************************************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[014], batch[0000/1607], elapsed time=0.45s, loss: 7.542, miou: 0.532, loss_g: 5.659, loss_intra: 1.203, loss_inter: 0.020, loss_d: 0.660
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[014], batch[0100/1607], elapsed time=0.41s, loss: 9.304, miou: 0.408, loss_g: 7.460, loss_intra: 1.220, loss_inter: 0.010, loss_d: 0.614
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[014], batch[0200/1607], elapsed time=0.41s, loss: 8.745, miou: 0.486, loss_g: 7.109, loss_intra: 0.952, loss_inter: 0.007, loss_d: 0.676
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[014], batch[0300/1607], elapsed time=0.42s, loss: 8.342, miou: 0.576, loss_g: 6.436, loss_intra: 1.249, loss_inter: 0.014, loss_d: 0.642
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[014], batch[0400/1607], elapsed time=0.40s, loss: 8.359, miou: 0.414, loss_g: 6.644, loss_intra: 1.074, loss_inter: 0.007, loss_d: 0.634
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[014], batch[0500/1607], elapsed time=0.42s, loss: 9.492, miou: 0.345, loss_g: 7.585, loss_intra: 1.205, loss_inter: 0.024, loss_d: 0.678
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[014], batch[0600/1607], elapsed time=0.41s, loss: 7.801, miou: 0.490, loss_g: 5.982, loss_intra: 1.167, loss_inter: 0.008, loss_d: 0.645
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[014], batch[0700/1607], elapsed time=0.41s, loss: 7.918, miou: 0.555, loss_g: 6.249, loss_intra: 1.035, loss_inter: 0.016, loss_d: 0.619
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[014], batch[0800/1607], elapsed time=0.41s, loss: 9.190, miou: 0.427, loss_g: 7.414, loss_intra: 1.166, loss_inter: 0.019, loss_d: 0.592
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[014], batch[0900/1607], elapsed time=0.41s, loss: 8.143, miou: 0.502, loss_g: 6.456, loss_intra: 1.088, loss_inter: 0.014, loss_d: 0.585
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[014], batch[1000/1607], elapsed time=0.41s, loss: 7.107, miou: 0.465, loss_g: 5.567, loss_intra: 0.897, loss_inter: 0.011, loss_d: 0.632
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[014], batch[1100/1607], elapsed time=0.42s, loss: 8.106, miou: 0.480, loss_g: 6.455, loss_intra: 1.046, loss_inter: 0.011, loss_d: 0.594
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[014], batch[1200/1607], elapsed time=0.41s, loss: 7.805, miou: 0.468, loss_g: 5.990, loss_intra: 1.145, loss_inter: 0.009, loss_d: 0.660
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[014], batch[1300/1607], elapsed time=0.41s, loss: 7.831, miou: 0.462, loss_g: 6.237, loss_intra: 0.988, loss_inter: 0.013, loss_d: 0.594
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[014], batch[1400/1607], elapsed time=0.41s, loss: 7.728, miou: 0.544, loss_g: 6.050, loss_intra: 1.038, loss_inter: 0.017, loss_d: 0.623
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[014], batch[1500/1607], elapsed time=0.41s, loss: 8.386, miou: 0.421, loss_g: 6.720, loss_intra: 1.037, loss_inter: 0.015, loss_d: 0.615
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[014], batch[1600/1607], elapsed time=0.42s, loss: 8.502, miou: 0.508, loss_g: 6.757, loss_intra: 1.135, loss_inter: 0.009, loss_d: 0.601
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):epoch [014]: elapsed time:676.73s, avg loss: 8.111, miou: 0.483, avg loss_g: 6.438, avg loss_intra: 1.045, avg loss_inter: 0.013, avg loss_d: 0.615,
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):loss statistics:
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):{0: 9.352, 1: 8.886, 2: 8.754, 3: 8.659, 4: 8.573, 5: 8.508, 6: 8.453, 7: 8.404, 8: 8.354, 9: 8.311, 10: 8.267, 11: 8.222, 12: 8.177, 13: 8.141, 14: 8.111}
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):validing:**********************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):valid: epoch[014], batch[0000/0056], elapsed time=0.22s, loss: 8.420, miou: 0.433, loss_g: 7.451, loss_m1: 0.954, loss_m2: 0.015
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):epoch [014]: elapsed time:13.1071s, avg loss: 7.844, miou: 0.462 avg loss_g: 6.749, avg loss_m1: 1.081, avg loss_m2: 0.014
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):mIoU statistics:
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):{0: 38.35, 1: 42.47, 2: 43.3, 3: 43.8, 4: 44.5, 5: 45.39, 6: 43.98, 7: 45.33, 8: 45.27, 9: 44.53, 10: 45.78, 11: 46.44, 12: 45.71, 13: 46.75, 14: 46.18}
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):Save model in runs/anet_cd/MDC_240T_i3d_VALval_G1_L1_D1_2/model/MDC_240T_i3d_VALval_G1_L1_D1_2_00014.ckp
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):learning rate:**********************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):training on optimizing localizing
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):              |: lr 0.0001, wd 0.0001
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):************************************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[015], batch[0000/1607], elapsed time=0.46s, loss: 7.722, miou: 0.511, loss_g: 6.099, loss_intra: 0.962, loss_inter: 0.013, loss_d: 0.648
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[015], batch[0100/1607], elapsed time=0.41s, loss: 7.907, miou: 0.438, loss_g: 6.174, loss_intra: 1.113, loss_inter: 0.045, loss_d: 0.575
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[015], batch[0200/1607], elapsed time=0.41s, loss: 8.643, miou: 0.444, loss_g: 6.989, loss_intra: 1.012, loss_inter: 0.025, loss_d: 0.617
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[015], batch[0300/1607], elapsed time=0.42s, loss: 9.182, miou: 0.468, loss_g: 7.326, loss_intra: 1.144, loss_inter: 0.032, loss_d: 0.681
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[015], batch[0400/1607], elapsed time=0.41s, loss: 7.592, miou: 0.497, loss_g: 6.074, loss_intra: 0.920, loss_inter: 0.029, loss_d: 0.569
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[015], batch[0500/1607], elapsed time=0.41s, loss: 8.448, miou: 0.470, loss_g: 6.864, loss_intra: 0.960, loss_inter: 0.026, loss_d: 0.599
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[015], batch[0600/1607], elapsed time=0.41s, loss: 7.825, miou: 0.489, loss_g: 6.305, loss_intra: 0.861, loss_inter: 0.018, loss_d: 0.642
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[015], batch[0700/1607], elapsed time=0.41s, loss: 7.649, miou: 0.565, loss_g: 5.989, loss_intra: 1.013, loss_inter: 0.026, loss_d: 0.622
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[015], batch[0800/1607], elapsed time=0.41s, loss: 8.723, miou: 0.485, loss_g: 6.921, loss_intra: 1.110, loss_inter: 0.025, loss_d: 0.667
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[015], batch[0900/1607], elapsed time=0.42s, loss: 7.668, miou: 0.523, loss_g: 6.180, loss_intra: 0.914, loss_inter: 0.008, loss_d: 0.566
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[015], batch[1000/1607], elapsed time=0.42s, loss: 8.315, miou: 0.444, loss_g: 6.733, loss_intra: 0.927, loss_inter: 0.017, loss_d: 0.637
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[015], batch[1100/1607], elapsed time=0.41s, loss: 7.205, miou: 0.582, loss_g: 5.774, loss_intra: 0.872, loss_inter: 0.008, loss_d: 0.551
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[015], batch[1200/1607], elapsed time=0.41s, loss: 8.106, miou: 0.468, loss_g: 6.499, loss_intra: 0.990, loss_inter: 0.005, loss_d: 0.612
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[015], batch[1300/1607], elapsed time=0.41s, loss: 7.844, miou: 0.515, loss_g: 6.200, loss_intra: 1.048, loss_inter: 0.023, loss_d: 0.572
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[015], batch[1400/1607], elapsed time=0.41s, loss: 7.961, miou: 0.556, loss_g: 6.316, loss_intra: 1.032, loss_inter: 0.017, loss_d: 0.595
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[015], batch[1500/1607], elapsed time=0.42s, loss: 7.800, miou: 0.474, loss_g: 6.394, loss_intra: 0.828, loss_inter: 0.017, loss_d: 0.560
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[015], batch[1600/1607], elapsed time=0.41s, loss: 7.804, miou: 0.496, loss_g: 6.296, loss_intra: 0.918, loss_inter: 0.012, loss_d: 0.579
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):epoch [015]: elapsed time:676.76s, avg loss: 7.808, miou: 0.510, avg loss_g: 6.184, avg loss_intra: 1.006, avg loss_inter: 0.015, avg loss_d: 0.602,
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):loss statistics:
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):{0: 9.352, 1: 8.886, 2: 8.754, 3: 8.659, 4: 8.573, 5: 8.508, 6: 8.453, 7: 8.404, 8: 8.354, 9: 8.311, 10: 8.267, 11: 8.222, 12: 8.177, 13: 8.141, 14: 8.111, 15: 7.808}
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):validing:**********************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):valid: epoch[015], batch[0000/0056], elapsed time=0.22s, loss: 8.373, miou: 0.427, loss_g: 7.378, loss_m1: 0.982, loss_m2: 0.012
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):epoch [015]: elapsed time:13.2478s, avg loss: 7.827, miou: 0.474 avg loss_g: 6.737, avg loss_m1: 1.074, avg loss_m2: 0.016
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):mIoU statistics:
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):{0: 38.35, 1: 42.47, 2: 43.3, 3: 43.8, 4: 44.5, 5: 45.39, 6: 43.98, 7: 45.33, 8: 45.27, 9: 44.53, 10: 45.78, 11: 46.44, 12: 45.71, 13: 46.75, 14: 46.18, 15: 47.4}
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):Save model in runs/anet_cd/MDC_240T_i3d_VALval_G1_L1_D1_2/model/MDC_240T_i3d_VALval_G1_L1_D1_2_00015.ckp
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):learning rate:**********************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):training on optimizing localizing
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):              |: lr 0.0001, wd 0.0001
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):************************************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[016], batch[0000/1607], elapsed time=0.48s, loss: 8.918, miou: 0.523, loss_g: 7.154, loss_intra: 1.157, loss_inter: 0.014, loss_d: 0.593
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[016], batch[0100/1607], elapsed time=0.41s, loss: 8.234, miou: 0.459, loss_g: 6.705, loss_intra: 0.964, loss_inter: 0.017, loss_d: 0.548
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[016], batch[0200/1607], elapsed time=0.41s, loss: 7.226, miou: 0.542, loss_g: 5.539, loss_intra: 1.072, loss_inter: 0.032, loss_d: 0.584
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[016], batch[0300/1607], elapsed time=0.41s, loss: 7.708, miou: 0.463, loss_g: 6.278, loss_intra: 0.833, loss_inter: 0.016, loss_d: 0.581
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[016], batch[0400/1607], elapsed time=0.41s, loss: 7.748, miou: 0.537, loss_g: 6.216, loss_intra: 0.949, loss_inter: 0.017, loss_d: 0.566
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[016], batch[0500/1607], elapsed time=0.42s, loss: 7.754, miou: 0.567, loss_g: 6.134, loss_intra: 1.055, loss_inter: 0.016, loss_d: 0.550
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[016], batch[0600/1607], elapsed time=0.41s, loss: 9.000, miou: 0.516, loss_g: 7.204, loss_intra: 1.110, loss_inter: 0.020, loss_d: 0.666
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[016], batch[0700/1607], elapsed time=0.42s, loss: 7.611, miou: 0.547, loss_g: 5.940, loss_intra: 1.059, loss_inter: 0.023, loss_d: 0.589
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[016], batch[0800/1607], elapsed time=0.42s, loss: 8.029, miou: 0.454, loss_g: 6.347, loss_intra: 1.024, loss_inter: 0.017, loss_d: 0.642
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[016], batch[0900/1607], elapsed time=0.40s, loss: 7.988, miou: 0.426, loss_g: 6.427, loss_intra: 0.905, loss_inter: 0.019, loss_d: 0.636
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[016], batch[1000/1607], elapsed time=0.41s, loss: 6.236, miou: 0.514, loss_g: 4.791, loss_intra: 0.890, loss_inter: 0.011, loss_d: 0.544
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[016], batch[1100/1607], elapsed time=0.41s, loss: 6.513, miou: 0.633, loss_g: 4.900, loss_intra: 1.028, loss_inter: 0.014, loss_d: 0.570
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[016], batch[1200/1607], elapsed time=0.42s, loss: 6.750, miou: 0.637, loss_g: 5.096, loss_intra: 0.987, loss_inter: 0.013, loss_d: 0.653
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[016], batch[1300/1607], elapsed time=0.41s, loss: 7.868, miou: 0.430, loss_g: 6.421, loss_intra: 0.813, loss_inter: 0.017, loss_d: 0.617
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[016], batch[1400/1607], elapsed time=0.41s, loss: 8.106, miou: 0.497, loss_g: 6.556, loss_intra: 0.997, loss_inter: 0.012, loss_d: 0.541
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[016], batch[1500/1607], elapsed time=0.41s, loss: 7.264, miou: 0.513, loss_g: 5.648, loss_intra: 0.988, loss_inter: 0.016, loss_d: 0.612
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[016], batch[1600/1607], elapsed time=0.40s, loss: 7.183, miou: 0.561, loss_g: 5.751, loss_intra: 0.879, loss_inter: 0.012, loss_d: 0.541
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):epoch [016]: elapsed time:674.37s, avg loss: 7.689, miou: 0.521, avg loss_g: 6.083, avg loss_intra: 0.991, avg loss_inter: 0.016, avg loss_d: 0.599,
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):loss statistics:
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):{0: 9.352, 1: 8.886, 2: 8.754, 3: 8.659, 4: 8.573, 5: 8.508, 6: 8.453, 7: 8.404, 8: 8.354, 9: 8.311, 10: 8.267, 11: 8.222, 12: 8.177, 13: 8.141, 14: 8.111, 15: 7.808, 16: 7.689}
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):validing:**********************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):valid: epoch[016], batch[0000/0056], elapsed time=0.21s, loss: 8.420, miou: 0.461, loss_g: 7.410, loss_m1: 0.993, loss_m2: 0.017
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):epoch [016]: elapsed time:13.4084s, avg loss: 7.838, miou: 0.475 avg loss_g: 6.744, avg loss_m1: 1.077, avg loss_m2: 0.017
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):mIoU statistics:
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):{0: 38.35, 1: 42.47, 2: 43.3, 3: 43.8, 4: 44.5, 5: 45.39, 6: 43.98, 7: 45.33, 8: 45.27, 9: 44.53, 10: 45.78, 11: 46.44, 12: 45.71, 13: 46.75, 14: 46.18, 15: 47.4, 16: 47.46}
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):Save model in runs/anet_cd/MDC_240T_i3d_VALval_G1_L1_D1_2/model/MDC_240T_i3d_VALval_G1_L1_D1_2_00016.ckp
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):learning rate:**********************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):training on optimizing localizing
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):              |: lr 0.0001, wd 0.0001
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):************************************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[017], batch[0000/1607], elapsed time=0.56s, loss: 8.516, miou: 0.335, loss_g: 6.996, loss_intra: 0.900, loss_inter: 0.016, loss_d: 0.605
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[017], batch[0100/1607], elapsed time=0.41s, loss: 7.861, miou: 0.497, loss_g: 6.290, loss_intra: 0.966, loss_inter: 0.007, loss_d: 0.598
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[017], batch[0200/1607], elapsed time=0.40s, loss: 7.928, miou: 0.609, loss_g: 6.175, loss_intra: 1.112, loss_inter: 0.028, loss_d: 0.613
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[017], batch[0300/1607], elapsed time=0.41s, loss: 8.229, miou: 0.524, loss_g: 6.540, loss_intra: 1.088, loss_inter: 0.029, loss_d: 0.571
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[017], batch[0400/1607], elapsed time=0.41s, loss: 8.559, miou: 0.419, loss_g: 7.016, loss_intra: 0.923, loss_inter: 0.010, loss_d: 0.610
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[017], batch[0500/1607], elapsed time=0.40s, loss: 8.099, miou: 0.510, loss_g: 6.711, loss_intra: 0.813, loss_inter: 0.012, loss_d: 0.562
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[017], batch[0600/1607], elapsed time=0.41s, loss: 7.550, miou: 0.530, loss_g: 6.066, loss_intra: 0.881, loss_inter: 0.024, loss_d: 0.579
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[017], batch[0700/1607], elapsed time=0.41s, loss: 7.452, miou: 0.537, loss_g: 5.982, loss_intra: 0.912, loss_inter: 0.018, loss_d: 0.541
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[017], batch[0800/1607], elapsed time=0.41s, loss: 8.038, miou: 0.495, loss_g: 6.455, loss_intra: 0.960, loss_inter: 0.029, loss_d: 0.594
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[017], batch[0900/1607], elapsed time=0.41s, loss: 7.562, miou: 0.497, loss_g: 5.974, loss_intra: 0.915, loss_inter: 0.019, loss_d: 0.655
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[017], batch[1000/1607], elapsed time=0.41s, loss: 7.318, miou: 0.553, loss_g: 5.679, loss_intra: 1.067, loss_inter: 0.014, loss_d: 0.558
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[017], batch[1100/1607], elapsed time=0.41s, loss: 7.496, miou: 0.445, loss_g: 5.964, loss_intra: 0.850, loss_inter: 0.009, loss_d: 0.674
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[017], batch[1200/1607], elapsed time=0.40s, loss: 7.826, miou: 0.584, loss_g: 6.198, loss_intra: 1.020, loss_inter: 0.025, loss_d: 0.583
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[017], batch[1300/1607], elapsed time=0.41s, loss: 7.288, miou: 0.652, loss_g: 5.507, loss_intra: 1.139, loss_inter: 0.012, loss_d: 0.629
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[017], batch[1400/1607], elapsed time=0.42s, loss: 7.775, miou: 0.449, loss_g: 6.213, loss_intra: 0.934, loss_inter: 0.012, loss_d: 0.616
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[017], batch[1500/1607], elapsed time=0.41s, loss: 7.211, miou: 0.534, loss_g: 5.704, loss_intra: 0.889, loss_inter: 0.013, loss_d: 0.605
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[017], batch[1600/1607], elapsed time=0.41s, loss: 6.681, miou: 0.668, loss_g: 5.123, loss_intra: 1.009, loss_inter: 0.023, loss_d: 0.527
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):epoch [017]: elapsed time:673.29s, avg loss: 7.622, miou: 0.527, avg loss_g: 6.027, avg loss_intra: 0.983, avg loss_inter: 0.016, avg loss_d: 0.596,
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):loss statistics:
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):{0: 9.352, 1: 8.886, 2: 8.754, 3: 8.659, 4: 8.573, 5: 8.508, 6: 8.453, 7: 8.404, 8: 8.354, 9: 8.311, 10: 8.267, 11: 8.222, 12: 8.177, 13: 8.141, 14: 8.111, 15: 7.808, 16: 7.689, 17: 7.622}
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):validing:**********************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):valid: epoch[017], batch[0000/0056], elapsed time=0.21s, loss: 8.480, miou: 0.411, loss_g: 7.439, loss_m1: 1.016, loss_m2: 0.026
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):epoch [017]: elapsed time:13.4010s, avg loss: 7.883, miou: 0.474 avg loss_g: 6.785, avg loss_m1: 1.079, avg loss_m2: 0.020
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):mIoU statistics:
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):{0: 38.35, 1: 42.47, 2: 43.3, 3: 43.8, 4: 44.5, 5: 45.39, 6: 43.98, 7: 45.33, 8: 45.27, 9: 44.53, 10: 45.78, 11: 46.44, 12: 45.71, 13: 46.75, 14: 46.18, 15: 47.4, 16: 47.46, 17: 47.38}
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):Save model in runs/anet_cd/MDC_240T_i3d_VALval_G1_L1_D1_2/model/MDC_240T_i3d_VALval_G1_L1_D1_2_00017.ckp
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):learning rate:**********************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):training on optimizing localizing
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):              |: lr 0.0001, wd 0.0001
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):************************************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[018], batch[0000/1607], elapsed time=0.46s, loss: 6.905, miou: 0.604, loss_g: 5.542, loss_intra: 0.820, loss_inter: 0.008, loss_d: 0.535
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[018], batch[0100/1607], elapsed time=0.41s, loss: 8.831, miou: 0.409, loss_g: 7.288, loss_intra: 0.923, loss_inter: 0.011, loss_d: 0.610
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[018], batch[0200/1607], elapsed time=0.41s, loss: 7.808, miou: 0.568, loss_g: 6.095, loss_intra: 1.055, loss_inter: 0.027, loss_d: 0.631
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[018], batch[0300/1607], elapsed time=0.41s, loss: 8.057, miou: 0.550, loss_g: 6.566, loss_intra: 0.947, loss_inter: 0.008, loss_d: 0.535
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[018], batch[0400/1607], elapsed time=0.41s, loss: 7.643, miou: 0.576, loss_g: 6.205, loss_intra: 0.892, loss_inter: 0.015, loss_d: 0.532
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[018], batch[0500/1607], elapsed time=0.41s, loss: 6.765, miou: 0.571, loss_g: 5.134, loss_intra: 0.999, loss_inter: 0.010, loss_d: 0.623
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[018], batch[0600/1607], elapsed time=0.40s, loss: 6.914, miou: 0.511, loss_g: 5.640, loss_intra: 0.681, loss_inter: 0.009, loss_d: 0.583
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[018], batch[0700/1607], elapsed time=0.40s, loss: 6.622, miou: 0.590, loss_g: 5.091, loss_intra: 0.913, loss_inter: 0.012, loss_d: 0.605
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[018], batch[0800/1607], elapsed time=0.41s, loss: 7.505, miou: 0.542, loss_g: 5.847, loss_intra: 1.034, loss_inter: 0.008, loss_d: 0.616
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[018], batch[0900/1607], elapsed time=0.41s, loss: 7.856, miou: 0.488, loss_g: 6.272, loss_intra: 0.982, loss_inter: 0.028, loss_d: 0.575
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[018], batch[1000/1607], elapsed time=0.40s, loss: 8.158, miou: 0.524, loss_g: 6.730, loss_intra: 0.809, loss_inter: 0.015, loss_d: 0.605
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[018], batch[1100/1607], elapsed time=0.42s, loss: 7.660, miou: 0.611, loss_g: 6.024, loss_intra: 1.067, loss_inter: 0.018, loss_d: 0.552
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[018], batch[1200/1607], elapsed time=0.42s, loss: 7.548, miou: 0.581, loss_g: 6.013, loss_intra: 0.933, loss_inter: 0.015, loss_d: 0.586
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[018], batch[1300/1607], elapsed time=0.41s, loss: 7.190, miou: 0.495, loss_g: 5.547, loss_intra: 1.041, loss_inter: 0.021, loss_d: 0.581
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[018], batch[1400/1607], elapsed time=0.40s, loss: 7.773, miou: 0.552, loss_g: 6.150, loss_intra: 0.998, loss_inter: 0.026, loss_d: 0.600
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[018], batch[1500/1607], elapsed time=0.41s, loss: 7.786, miou: 0.569, loss_g: 6.175, loss_intra: 1.012, loss_inter: 0.016, loss_d: 0.583
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[018], batch[1600/1607], elapsed time=0.41s, loss: 7.385, miou: 0.566, loss_g: 5.768, loss_intra: 0.955, loss_inter: 0.031, loss_d: 0.632
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):epoch [018]: elapsed time:674.24s, avg loss: 7.559, miou: 0.532, avg loss_g: 5.973, avg loss_intra: 0.974, avg loss_inter: 0.017, avg loss_d: 0.595,
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):loss statistics:
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):{0: 9.352, 1: 8.886, 2: 8.754, 3: 8.659, 4: 8.573, 5: 8.508, 6: 8.453, 7: 8.404, 8: 8.354, 9: 8.311, 10: 8.267, 11: 8.222, 12: 8.177, 13: 8.141, 14: 8.111, 15: 7.808, 16: 7.689, 17: 7.622, 18: 7.559}
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):validing:**********************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):valid: epoch[018], batch[0000/0056], elapsed time=0.23s, loss: 8.420, miou: 0.414, loss_g: 7.401, loss_m1: 0.994, loss_m2: 0.025
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):epoch [018]: elapsed time:13.5843s, avg loss: 7.926, miou: 0.473 avg loss_g: 6.829, avg loss_m1: 1.078, avg loss_m2: 0.019
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):mIoU statistics:
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):{0: 38.35, 1: 42.47, 2: 43.3, 3: 43.8, 4: 44.5, 5: 45.39, 6: 43.98, 7: 45.33, 8: 45.27, 9: 44.53, 10: 45.78, 11: 46.44, 12: 45.71, 13: 46.75, 14: 46.18, 15: 47.4, 16: 47.46, 17: 47.38, 18: 47.32}
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):Save model in runs/anet_cd/MDC_240T_i3d_VALval_G1_L1_D1_2/model/MDC_240T_i3d_VALval_G1_L1_D1_2_00018.ckp
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):learning rate:**********************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):training on optimizing localizing
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):              |: lr 0.0001, wd 0.0001
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):************************************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[019], batch[0000/1607], elapsed time=0.46s, loss: 7.507, miou: 0.516, loss_g: 5.976, loss_intra: 0.913, loss_inter: 0.016, loss_d: 0.602
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[019], batch[0100/1607], elapsed time=0.41s, loss: 8.065, miou: 0.524, loss_g: 6.452, loss_intra: 1.003, loss_inter: 0.013, loss_d: 0.598
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[019], batch[0200/1607], elapsed time=0.41s, loss: 6.935, miou: 0.596, loss_g: 5.362, loss_intra: 0.984, loss_inter: 0.022, loss_d: 0.567
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[019], batch[0300/1607], elapsed time=0.40s, loss: 6.459, miou: 0.596, loss_g: 4.990, loss_intra: 0.862, loss_inter: 0.012, loss_d: 0.596
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[019], batch[0400/1607], elapsed time=0.41s, loss: 7.476, miou: 0.503, loss_g: 6.019, loss_intra: 0.853, loss_inter: 0.028, loss_d: 0.576
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[019], batch[0500/1607], elapsed time=0.41s, loss: 7.604, miou: 0.534, loss_g: 6.108, loss_intra: 0.891, loss_inter: 0.028, loss_d: 0.577
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[019], batch[0600/1607], elapsed time=0.41s, loss: 6.363, miou: 0.653, loss_g: 4.854, loss_intra: 0.871, loss_inter: 0.009, loss_d: 0.629
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[019], batch[0700/1607], elapsed time=0.41s, loss: 6.928, miou: 0.537, loss_g: 5.553, loss_intra: 0.806, loss_inter: 0.015, loss_d: 0.553
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[019], batch[0800/1607], elapsed time=0.41s, loss: 7.730, miou: 0.545, loss_g: 6.224, loss_intra: 0.893, loss_inter: 0.023, loss_d: 0.589
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[019], batch[0900/1607], elapsed time=0.41s, loss: 7.271, miou: 0.455, loss_g: 5.772, loss_intra: 0.783, loss_inter: 0.019, loss_d: 0.697
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[019], batch[1000/1607], elapsed time=0.41s, loss: 7.126, miou: 0.575, loss_g: 5.718, loss_intra: 0.874, loss_inter: 0.016, loss_d: 0.518
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[019], batch[1100/1607], elapsed time=0.40s, loss: 7.869, miou: 0.592, loss_g: 6.151, loss_intra: 1.051, loss_inter: 0.013, loss_d: 0.654
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[019], batch[1200/1607], elapsed time=0.41s, loss: 7.074, miou: 0.580, loss_g: 5.416, loss_intra: 1.002, loss_inter: 0.020, loss_d: 0.636
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[019], batch[1300/1607], elapsed time=0.42s, loss: 7.828, miou: 0.585, loss_g: 6.187, loss_intra: 1.082, loss_inter: 0.021, loss_d: 0.538
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[019], batch[1400/1607], elapsed time=0.41s, loss: 7.878, miou: 0.559, loss_g: 6.290, loss_intra: 0.953, loss_inter: 0.032, loss_d: 0.603
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[019], batch[1500/1607], elapsed time=0.41s, loss: 7.090, miou: 0.578, loss_g: 5.392, loss_intra: 1.051, loss_inter: 0.015, loss_d: 0.632
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[019], batch[1600/1607], elapsed time=0.42s, loss: 7.458, miou: 0.567, loss_g: 5.977, loss_intra: 0.932, loss_inter: 0.010, loss_d: 0.538
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):epoch [019]: elapsed time:674.49s, avg loss: 7.499, miou: 0.539, avg loss_g: 5.920, avg loss_intra: 0.967, avg loss_inter: 0.017, avg loss_d: 0.594,
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):loss statistics:
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):{0: 9.352, 1: 8.886, 2: 8.754, 3: 8.659, 4: 8.573, 5: 8.508, 6: 8.453, 7: 8.404, 8: 8.354, 9: 8.311, 10: 8.267, 11: 8.222, 12: 8.177, 13: 8.141, 14: 8.111, 15: 7.808, 16: 7.689, 17: 7.622, 18: 7.559, 19: 7.499}
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):validing:**********************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):valid: epoch[019], batch[0000/0056], elapsed time=0.21s, loss: 8.472, miou: 0.398, loss_g: 7.452, loss_m1: 1.005, loss_m2: 0.015
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):epoch [019]: elapsed time:13.3057s, avg loss: 7.941, miou: 0.474 avg loss_g: 6.843, avg loss_m1: 1.081, avg loss_m2: 0.018
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):mIoU statistics:
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):{0: 38.35, 1: 42.47, 2: 43.3, 3: 43.8, 4: 44.5, 5: 45.39, 6: 43.98, 7: 45.33, 8: 45.27, 9: 44.53, 10: 45.78, 11: 46.44, 12: 45.71, 13: 46.75, 14: 46.18, 15: 47.4, 16: 47.46, 17: 47.38, 18: 47.32, 19: 47.4}
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):Save model in runs/anet_cd/MDC_240T_i3d_VALval_G1_L1_D1_2/model/MDC_240T_i3d_VALval_G1_L1_D1_2_00019.ckp
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):learning rate:**********************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):training on optimizing localizing
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):              |: lr 0.0001, wd 0.0001
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):************************************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[020], batch[0000/1607], elapsed time=0.53s, loss: 6.982, miou: 0.610, loss_g: 5.428, loss_intra: 0.984, loss_inter: 0.017, loss_d: 0.554
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[020], batch[0100/1607], elapsed time=0.40s, loss: 8.103, miou: 0.514, loss_g: 6.367, loss_intra: 1.031, loss_inter: 0.016, loss_d: 0.689
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[020], batch[0200/1607], elapsed time=0.42s, loss: 6.174, miou: 0.643, loss_g: 4.716, loss_intra: 0.860, loss_inter: 0.018, loss_d: 0.580
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[020], batch[0300/1607], elapsed time=0.41s, loss: 7.066, miou: 0.531, loss_g: 5.538, loss_intra: 0.913, loss_inter: 0.025, loss_d: 0.590
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[020], batch[0400/1607], elapsed time=0.42s, loss: 8.233, miou: 0.479, loss_g: 6.607, loss_intra: 0.964, loss_inter: 0.013, loss_d: 0.649
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[020], batch[0500/1607], elapsed time=0.42s, loss: 6.664, miou: 0.598, loss_g: 5.196, loss_intra: 0.917, loss_inter: 0.019, loss_d: 0.533
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[020], batch[0600/1607], elapsed time=0.41s, loss: 7.768, miou: 0.502, loss_g: 6.084, loss_intra: 1.031, loss_inter: 0.021, loss_d: 0.632
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[020], batch[0700/1607], elapsed time=0.41s, loss: 6.879, miou: 0.514, loss_g: 5.119, loss_intra: 1.089, loss_inter: 0.015, loss_d: 0.656
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[020], batch[0800/1607], elapsed time=0.40s, loss: 7.587, miou: 0.529, loss_g: 5.924, loss_intra: 1.037, loss_inter: 0.011, loss_d: 0.614
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[020], batch[0900/1607], elapsed time=0.41s, loss: 7.134, miou: 0.686, loss_g: 5.432, loss_intra: 1.056, loss_inter: 0.015, loss_d: 0.631
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[020], batch[1000/1607], elapsed time=0.41s, loss: 7.409, miou: 0.514, loss_g: 5.779, loss_intra: 1.038, loss_inter: 0.015, loss_d: 0.578
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[020], batch[1100/1607], elapsed time=0.41s, loss: 7.536, miou: 0.579, loss_g: 5.840, loss_intra: 1.034, loss_inter: 0.018, loss_d: 0.645
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[020], batch[1200/1607], elapsed time=0.40s, loss: 7.287, miou: 0.580, loss_g: 5.709, loss_intra: 1.047, loss_inter: 0.019, loss_d: 0.513
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[020], batch[1300/1607], elapsed time=0.40s, loss: 7.899, miou: 0.550, loss_g: 6.283, loss_intra: 1.036, loss_inter: 0.021, loss_d: 0.560
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[020], batch[1400/1607], elapsed time=0.41s, loss: 7.590, miou: 0.487, loss_g: 6.011, loss_intra: 0.901, loss_inter: 0.014, loss_d: 0.665
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[020], batch[1500/1607], elapsed time=0.41s, loss: 7.084, miou: 0.575, loss_g: 5.626, loss_intra: 0.900, loss_inter: 0.029, loss_d: 0.529
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[020], batch[1600/1607], elapsed time=0.40s, loss: 6.784, miou: 0.653, loss_g: 5.381, loss_intra: 0.832, loss_inter: 0.010, loss_d: 0.562
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):epoch [020]: elapsed time:674.71s, avg loss: 7.441, miou: 0.544, avg loss_g: 5.870, avg loss_intra: 0.961, avg loss_inter: 0.018, avg loss_d: 0.592,
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):loss statistics:
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):{0: 9.352, 1: 8.886, 2: 8.754, 3: 8.659, 4: 8.573, 5: 8.508, 6: 8.453, 7: 8.404, 8: 8.354, 9: 8.311, 10: 8.267, 11: 8.222, 12: 8.177, 13: 8.141, 14: 8.111, 15: 7.808, 16: 7.689, 17: 7.622, 18: 7.559, 19: 7.499, 20: 7.441}
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):validing:**********************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):valid: epoch[020], batch[0000/0056], elapsed time=0.22s, loss: 8.453, miou: 0.415, loss_g: 7.436, loss_m1: 0.998, loss_m2: 0.019
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):epoch [020]: elapsed time:13.3886s, avg loss: 7.993, miou: 0.475 avg loss_g: 6.897, avg loss_m1: 1.075, avg loss_m2: 0.022
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):mIoU statistics:
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):{0: 38.35, 1: 42.47, 2: 43.3, 3: 43.8, 4: 44.5, 5: 45.39, 6: 43.98, 7: 45.33, 8: 45.27, 9: 44.53, 10: 45.78, 11: 46.44, 12: 45.71, 13: 46.75, 14: 46.18, 15: 47.4, 16: 47.46, 17: 47.38, 18: 47.32, 19: 47.4, 20: 47.5}
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):Save model in runs/anet_cd/MDC_240T_i3d_VALval_G1_L1_D1_2/model/MDC_240T_i3d_VALval_G1_L1_D1_2_00020.ckp
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):learning rate:**********************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):training on optimizing localizing
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):              |: lr 0.0001, wd 0.0001
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):************************************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[021], batch[0000/1607], elapsed time=0.47s, loss: 7.790, miou: 0.495, loss_g: 6.146, loss_intra: 0.974, loss_inter: 0.019, loss_d: 0.651
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[021], batch[0100/1607], elapsed time=0.41s, loss: 7.947, miou: 0.466, loss_g: 6.224, loss_intra: 1.125, loss_inter: 0.012, loss_d: 0.586
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[021], batch[0200/1607], elapsed time=0.42s, loss: 7.194, miou: 0.508, loss_g: 5.849, loss_intra: 0.761, loss_inter: 0.016, loss_d: 0.568
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[021], batch[0300/1607], elapsed time=0.40s, loss: 7.544, miou: 0.488, loss_g: 5.975, loss_intra: 0.986, loss_inter: 0.015, loss_d: 0.568
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[021], batch[0400/1607], elapsed time=0.40s, loss: 7.598, miou: 0.521, loss_g: 5.978, loss_intra: 0.971, loss_inter: 0.018, loss_d: 0.632
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[021], batch[0500/1607], elapsed time=0.41s, loss: 7.283, miou: 0.514, loss_g: 5.695, loss_intra: 0.985, loss_inter: 0.018, loss_d: 0.585
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[021], batch[0600/1607], elapsed time=0.41s, loss: 7.706, miou: 0.448, loss_g: 6.199, loss_intra: 0.923, loss_inter: 0.038, loss_d: 0.546
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[021], batch[0700/1607], elapsed time=0.41s, loss: 7.663, miou: 0.507, loss_g: 6.021, loss_intra: 1.047, loss_inter: 0.017, loss_d: 0.578
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[021], batch[0800/1607], elapsed time=0.42s, loss: 7.071, miou: 0.671, loss_g: 5.203, loss_intra: 1.243, loss_inter: 0.021, loss_d: 0.604
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[021], batch[0900/1607], elapsed time=0.41s, loss: 6.462, miou: 0.575, loss_g: 4.966, loss_intra: 0.913, loss_inter: 0.014, loss_d: 0.570
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[021], batch[1000/1607], elapsed time=0.40s, loss: 7.639, miou: 0.583, loss_g: 6.019, loss_intra: 1.059, loss_inter: 0.023, loss_d: 0.538
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[021], batch[1100/1607], elapsed time=0.41s, loss: 7.686, miou: 0.560, loss_g: 6.018, loss_intra: 1.101, loss_inter: 0.020, loss_d: 0.547
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[021], batch[1200/1607], elapsed time=0.41s, loss: 6.102, miou: 0.697, loss_g: 4.526, loss_intra: 0.999, loss_inter: 0.014, loss_d: 0.562
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[021], batch[1300/1607], elapsed time=0.40s, loss: 7.229, miou: 0.539, loss_g: 5.451, loss_intra: 1.075, loss_inter: 0.019, loss_d: 0.684
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[021], batch[1400/1607], elapsed time=0.41s, loss: 7.024, miou: 0.502, loss_g: 5.637, loss_intra: 0.801, loss_inter: 0.012, loss_d: 0.574
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[021], batch[1500/1607], elapsed time=0.41s, loss: 6.644, miou: 0.609, loss_g: 5.140, loss_intra: 0.861, loss_inter: 0.015, loss_d: 0.628
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[021], batch[1600/1607], elapsed time=0.41s, loss: 6.941, miou: 0.529, loss_g: 5.540, loss_intra: 0.772, loss_inter: 0.011, loss_d: 0.618
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):epoch [021]: elapsed time:673.41s, avg loss: 7.380, miou: 0.549, avg loss_g: 5.817, avg loss_intra: 0.955, avg loss_inter: 0.018, avg loss_d: 0.590,
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):loss statistics:
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):{0: 9.352, 1: 8.886, 2: 8.754, 3: 8.659, 4: 8.573, 5: 8.508, 6: 8.453, 7: 8.404, 8: 8.354, 9: 8.311, 10: 8.267, 11: 8.222, 12: 8.177, 13: 8.141, 14: 8.111, 15: 7.808, 16: 7.689, 17: 7.622, 18: 7.559, 19: 7.499, 20: 7.441, 21: 7.38}
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):validing:**********************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):valid: epoch[021], batch[0000/0056], elapsed time=0.23s, loss: 8.598, miou: 0.400, loss_g: 7.564, loss_m1: 1.004, loss_m2: 0.030
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):epoch [021]: elapsed time:13.5653s, avg loss: 8.017, miou: 0.475 avg loss_g: 6.926, avg loss_m1: 1.070, avg loss_m2: 0.020
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):mIoU statistics:
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):{0: 38.35, 1: 42.47, 2: 43.3, 3: 43.8, 4: 44.5, 5: 45.39, 6: 43.98, 7: 45.33, 8: 45.27, 9: 44.53, 10: 45.78, 11: 46.44, 12: 45.71, 13: 46.75, 14: 46.18, 15: 47.4, 16: 47.46, 17: 47.38, 18: 47.32, 19: 47.4, 20: 47.5, 21: 47.54}
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):Save model in runs/anet_cd/MDC_240T_i3d_VALval_G1_L1_D1_2/model/MDC_240T_i3d_VALval_G1_L1_D1_2_00021.ckp
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):learning rate:**********************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):training on optimizing localizing
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):              |: lr 0.0001, wd 0.0001
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):************************************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[022], batch[0000/1607], elapsed time=0.49s, loss: 7.282, miou: 0.572, loss_g: 5.736, loss_intra: 0.910, loss_inter: 0.017, loss_d: 0.619
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[022], batch[0100/1607], elapsed time=0.40s, loss: 7.833, miou: 0.555, loss_g: 6.372, loss_intra: 0.842, loss_inter: 0.016, loss_d: 0.603
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[022], batch[0200/1607], elapsed time=0.41s, loss: 8.477, miou: 0.423, loss_g: 6.921, loss_intra: 0.936, loss_inter: 0.015, loss_d: 0.605
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[022], batch[0300/1607], elapsed time=0.41s, loss: 7.478, miou: 0.482, loss_g: 5.845, loss_intra: 1.043, loss_inter: 0.028, loss_d: 0.562
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[022], batch[0400/1607], elapsed time=0.41s, loss: 7.422, miou: 0.497, loss_g: 5.869, loss_intra: 0.967, loss_inter: 0.010, loss_d: 0.577
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[022], batch[0500/1607], elapsed time=0.41s, loss: 6.762, miou: 0.625, loss_g: 5.342, loss_intra: 0.877, loss_inter: 0.014, loss_d: 0.529
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[022], batch[0600/1607], elapsed time=0.41s, loss: 7.214, miou: 0.624, loss_g: 5.606, loss_intra: 1.067, loss_inter: 0.024, loss_d: 0.517
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[022], batch[0700/1607], elapsed time=0.41s, loss: 7.562, miou: 0.544, loss_g: 5.768, loss_intra: 1.225, loss_inter: 0.019, loss_d: 0.550
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[022], batch[0800/1607], elapsed time=0.41s, loss: 6.926, miou: 0.572, loss_g: 5.320, loss_intra: 0.958, loss_inter: 0.015, loss_d: 0.634
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[022], batch[0900/1607], elapsed time=0.40s, loss: 7.278, miou: 0.514, loss_g: 5.701, loss_intra: 0.963, loss_inter: 0.012, loss_d: 0.601
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[022], batch[1000/1607], elapsed time=0.42s, loss: 6.845, miou: 0.494, loss_g: 5.433, loss_intra: 0.821, loss_inter: 0.017, loss_d: 0.574
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[022], batch[1100/1607], elapsed time=0.41s, loss: 7.188, miou: 0.477, loss_g: 5.832, loss_intra: 0.786, loss_inter: 0.029, loss_d: 0.541
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[022], batch[1200/1607], elapsed time=0.41s, loss: 6.848, miou: 0.626, loss_g: 5.455, loss_intra: 0.838, loss_inter: 0.021, loss_d: 0.533
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[022], batch[1300/1607], elapsed time=0.42s, loss: 7.742, miou: 0.507, loss_g: 6.154, loss_intra: 0.939, loss_inter: 0.012, loss_d: 0.636
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[022], batch[1400/1607], elapsed time=0.41s, loss: 8.199, miou: 0.496, loss_g: 6.659, loss_intra: 0.942, loss_inter: 0.020, loss_d: 0.578
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[022], batch[1500/1607], elapsed time=0.41s, loss: 7.698, miou: 0.538, loss_g: 6.028, loss_intra: 0.970, loss_inter: 0.014, loss_d: 0.686
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[022], batch[1600/1607], elapsed time=0.41s, loss: 7.828, miou: 0.431, loss_g: 6.238, loss_intra: 0.896, loss_inter: 0.020, loss_d: 0.674
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):epoch [022]: elapsed time:674.40s, avg loss: 7.322, miou: 0.553, avg loss_g: 5.767, avg loss_intra: 0.947, avg loss_inter: 0.019, avg loss_d: 0.589,
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):loss statistics:
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):{0: 9.352, 1: 8.886, 2: 8.754, 3: 8.659, 4: 8.573, 5: 8.508, 6: 8.453, 7: 8.404, 8: 8.354, 9: 8.311, 10: 8.267, 11: 8.222, 12: 8.177, 13: 8.141, 14: 8.111, 15: 7.808, 16: 7.689, 17: 7.622, 18: 7.559, 19: 7.499, 20: 7.441, 21: 7.38, 22: 7.322}
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):validing:**********************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):valid: epoch[022], batch[0000/0056], elapsed time=0.22s, loss: 8.523, miou: 0.427, loss_g: 7.517, loss_m1: 0.988, loss_m2: 0.018
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):epoch [022]: elapsed time:13.2168s, avg loss: 8.100, miou: 0.476 avg loss_g: 7.003, avg loss_m1: 1.076, avg loss_m2: 0.021
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):mIoU statistics:
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):{0: 38.35, 1: 42.47, 2: 43.3, 3: 43.8, 4: 44.5, 5: 45.39, 6: 43.98, 7: 45.33, 8: 45.27, 9: 44.53, 10: 45.78, 11: 46.44, 12: 45.71, 13: 46.75, 14: 46.18, 15: 47.4, 16: 47.46, 17: 47.38, 18: 47.32, 19: 47.4, 20: 47.5, 21: 47.54, 22: 47.58}
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):Save model in runs/anet_cd/MDC_240T_i3d_VALval_G1_L1_D1_2/model/MDC_240T_i3d_VALval_G1_L1_D1_2_00022.ckp
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):learning rate:**********************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):training on optimizing localizing
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):              |: lr 0.0001, wd 0.0001
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):************************************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[023], batch[0000/1607], elapsed time=0.46s, loss: 7.227, miou: 0.573, loss_g: 5.644, loss_intra: 0.973, loss_inter: 0.018, loss_d: 0.592
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[023], batch[0100/1607], elapsed time=0.44s, loss: 7.212, miou: 0.596, loss_g: 5.483, loss_intra: 1.089, loss_inter: 0.021, loss_d: 0.618
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[023], batch[0200/1607], elapsed time=0.42s, loss: 7.207, miou: 0.528, loss_g: 5.775, loss_intra: 0.879, loss_inter: 0.015, loss_d: 0.537
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[023], batch[0300/1607], elapsed time=0.41s, loss: 7.140, miou: 0.634, loss_g: 5.605, loss_intra: 0.920, loss_inter: 0.015, loss_d: 0.599
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[023], batch[0400/1607], elapsed time=0.42s, loss: 7.677, miou: 0.566, loss_g: 6.079, loss_intra: 0.972, loss_inter: 0.013, loss_d: 0.613
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[023], batch[0500/1607], elapsed time=0.41s, loss: 8.473, miou: 0.516, loss_g: 6.843, loss_intra: 1.034, loss_inter: 0.013, loss_d: 0.583
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[023], batch[0600/1607], elapsed time=0.44s, loss: 6.578, miou: 0.613, loss_g: 5.018, loss_intra: 0.981, loss_inter: 0.030, loss_d: 0.550
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[023], batch[0700/1607], elapsed time=0.41s, loss: 6.411, miou: 0.553, loss_g: 4.920, loss_intra: 0.887, loss_inter: 0.013, loss_d: 0.592
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[023], batch[0800/1607], elapsed time=0.44s, loss: 7.718, miou: 0.453, loss_g: 6.067, loss_intra: 1.059, loss_inter: 0.012, loss_d: 0.580
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[023], batch[0900/1607], elapsed time=0.46s, loss: 8.168, miou: 0.576, loss_g: 6.686, loss_intra: 0.846, loss_inter: 0.018, loss_d: 0.618
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[023], batch[1000/1607], elapsed time=0.41s, loss: 6.418, miou: 0.702, loss_g: 4.901, loss_intra: 0.945, loss_inter: 0.017, loss_d: 0.555
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[023], batch[1100/1607], elapsed time=0.43s, loss: 7.125, miou: 0.589, loss_g: 5.572, loss_intra: 0.884, loss_inter: 0.046, loss_d: 0.623
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[023], batch[1200/1607], elapsed time=0.42s, loss: 7.551, miou: 0.563, loss_g: 6.004, loss_intra: 0.911, loss_inter: 0.021, loss_d: 0.615
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[023], batch[1300/1607], elapsed time=0.41s, loss: 7.160, miou: 0.580, loss_g: 5.676, loss_intra: 0.935, loss_inter: 0.015, loss_d: 0.534
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[023], batch[1400/1607], elapsed time=0.40s, loss: 7.070, miou: 0.556, loss_g: 5.678, loss_intra: 0.798, loss_inter: 0.020, loss_d: 0.574
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[023], batch[1500/1607], elapsed time=0.41s, loss: 6.320, miou: 0.624, loss_g: 4.722, loss_intra: 0.987, loss_inter: 0.014, loss_d: 0.598
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[023], batch[1600/1607], elapsed time=0.41s, loss: 6.164, miou: 0.595, loss_g: 4.802, loss_intra: 0.751, loss_inter: 0.008, loss_d: 0.603
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):epoch [023]: elapsed time:696.26s, avg loss: 7.260, miou: 0.559, avg loss_g: 5.711, avg loss_intra: 0.941, avg loss_inter: 0.019, avg loss_d: 0.589,
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):loss statistics:
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):{0: 9.352, 1: 8.886, 2: 8.754, 3: 8.659, 4: 8.573, 5: 8.508, 6: 8.453, 7: 8.404, 8: 8.354, 9: 8.311, 10: 8.267, 11: 8.222, 12: 8.177, 13: 8.141, 14: 8.111, 15: 7.808, 16: 7.689, 17: 7.622, 18: 7.559, 19: 7.499, 20: 7.441, 21: 7.38, 22: 7.322, 23: 7.26}
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):validing:**********************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):valid: epoch[023], batch[0000/0056], elapsed time=0.24s, loss: 8.686, miou: 0.422, loss_g: 7.635, loss_m1: 1.027, loss_m2: 0.024
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):epoch [023]: elapsed time:13.3688s, avg loss: 8.161, miou: 0.471 avg loss_g: 7.032, avg loss_m1: 1.100, avg loss_m2: 0.029
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):mIoU statistics:
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):{0: 38.35, 1: 42.47, 2: 43.3, 3: 43.8, 4: 44.5, 5: 45.39, 6: 43.98, 7: 45.33, 8: 45.27, 9: 44.53, 10: 45.78, 11: 46.44, 12: 45.71, 13: 46.75, 14: 46.18, 15: 47.4, 16: 47.46, 17: 47.38, 18: 47.32, 19: 47.4, 20: 47.5, 21: 47.54, 22: 47.58, 23: 47.07}
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):Save model in runs/anet_cd/MDC_240T_i3d_VALval_G1_L1_D1_2/model/MDC_240T_i3d_VALval_G1_L1_D1_2_00023.ckp
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):learning rate:**********************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):training on optimizing localizing
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):              |: lr 0.0001, wd 0.0001
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):************************************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[024], batch[0000/1607], elapsed time=0.47s, loss: 7.037, miou: 0.574, loss_g: 5.478, loss_intra: 0.953, loss_inter: 0.023, loss_d: 0.584
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[024], batch[0100/1607], elapsed time=0.41s, loss: 7.511, miou: 0.548, loss_g: 5.978, loss_intra: 0.858, loss_inter: 0.023, loss_d: 0.652
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[024], batch[0200/1607], elapsed time=0.42s, loss: 6.998, miou: 0.499, loss_g: 5.575, loss_intra: 0.859, loss_inter: 0.020, loss_d: 0.545
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[024], batch[0300/1607], elapsed time=0.43s, loss: 7.155, miou: 0.591, loss_g: 5.743, loss_intra: 0.862, loss_inter: 0.022, loss_d: 0.529
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[024], batch[0400/1607], elapsed time=0.41s, loss: 7.173, miou: 0.657, loss_g: 5.476, loss_intra: 0.979, loss_inter: 0.036, loss_d: 0.683
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[024], batch[0500/1607], elapsed time=0.40s, loss: 6.907, miou: 0.594, loss_g: 5.493, loss_intra: 0.880, loss_inter: 0.017, loss_d: 0.518
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[024], batch[0600/1607], elapsed time=0.41s, loss: 7.037, miou: 0.526, loss_g: 5.497, loss_intra: 0.964, loss_inter: 0.022, loss_d: 0.554
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[024], batch[0700/1607], elapsed time=0.41s, loss: 7.417, miou: 0.537, loss_g: 5.924, loss_intra: 0.870, loss_inter: 0.013, loss_d: 0.610
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[024], batch[0800/1607], elapsed time=0.42s, loss: 7.428, miou: 0.513, loss_g: 5.961, loss_intra: 0.876, loss_inter: 0.018, loss_d: 0.573
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[024], batch[0900/1607], elapsed time=0.40s, loss: 7.344, miou: 0.570, loss_g: 5.800, loss_intra: 0.922, loss_inter: 0.017, loss_d: 0.605
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[024], batch[1000/1607], elapsed time=0.42s, loss: 6.940, miou: 0.584, loss_g: 5.270, loss_intra: 1.070, loss_inter: 0.021, loss_d: 0.579
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[024], batch[1100/1607], elapsed time=0.41s, loss: 6.890, miou: 0.597, loss_g: 5.445, loss_intra: 0.836, loss_inter: 0.018, loss_d: 0.592
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[024], batch[1200/1607], elapsed time=0.41s, loss: 7.181, miou: 0.533, loss_g: 5.587, loss_intra: 0.948, loss_inter: 0.019, loss_d: 0.627
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[024], batch[1300/1607], elapsed time=0.41s, loss: 7.917, miou: 0.445, loss_g: 6.344, loss_intra: 0.965, loss_inter: 0.016, loss_d: 0.592
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[024], batch[1400/1607], elapsed time=0.41s, loss: 7.875, miou: 0.527, loss_g: 6.247, loss_intra: 0.940, loss_inter: 0.015, loss_d: 0.673
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[024], batch[1500/1607], elapsed time=0.41s, loss: 6.526, miou: 0.552, loss_g: 5.015, loss_intra: 0.823, loss_inter: 0.017, loss_d: 0.672
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):train: epoch[024], batch[1600/1607], elapsed time=0.41s, loss: 8.010, miou: 0.622, loss_g: 6.464, loss_intra: 0.941, loss_inter: 0.023, loss_d: 0.582
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):epoch [024]: elapsed time:677.41s, avg loss: 7.195, miou: 0.564, avg loss_g: 5.654, avg loss_intra: 0.935, avg loss_inter: 0.019, avg loss_d: 0.587,
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):loss statistics:
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):{0: 9.352, 1: 8.886, 2: 8.754, 3: 8.659, 4: 8.573, 5: 8.508, 6: 8.453, 7: 8.404, 8: 8.354, 9: 8.311, 10: 8.267, 11: 8.222, 12: 8.177, 13: 8.141, 14: 8.111, 15: 7.808, 16: 7.689, 17: 7.622, 18: 7.559, 19: 7.499, 20: 7.441, 21: 7.38, 22: 7.322, 23: 7.26, 24: 7.195}
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):validing:**********************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):valid: epoch[024], batch[0000/0056], elapsed time=0.22s, loss: 8.718, miou: 0.428, loss_g: 7.680, loss_m1: 1.018, loss_m2: 0.019
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):epoch [024]: elapsed time:13.5953s, avg loss: 8.163, miou: 0.472 avg loss_g: 7.057, avg loss_m1: 1.082, avg loss_m2: 0.024
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):****************************************************************************************************
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):mIoU statistics:
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):{0: 38.35, 1: 42.47, 2: 43.3, 3: 43.8, 4: 44.5, 5: 45.39, 6: 43.98, 7: 45.33, 8: 45.27, 9: 44.53, 10: 45.78, 11: 46.44, 12: 45.71, 13: 46.75, 14: 46.18, 15: 47.4, 16: 47.46, 17: 47.38, 18: 47.32, 19: 47.4, 20: 47.5, 21: 47.54, 22: 47.58, 23: 47.07, 24: 47.18}
+INFO:MDC_240T_i3d_VALval_G1_L1_D1_2(1):Save model in runs/anet_cd/MDC_240T_i3d_VALval_G1_L1_D1_2/model/MDC_240T_i3d_VALval_G1_L1_D1_2_00024.ckp
+loss :
+0	1	2	3	4	5	6	7	8	9	10	11	12	13	14	15	16	17	18	19	20	21	22	23	24
+9.352	8.886	8.754	8.659	8.573	8.508	8.453	8.404	8.354	8.311	8.267	8.222	8.177	8.141	8.111	7.808	7.689	7.622	7.559	7.499	7.441	7.38	7.322	7.26	7.195
+mIoU :
+0	1	2	3	4	5	6	7	8	9	10	11	12	13	14	15	16	17	18	19	20	21	22	23	24
+38.35	42.47	43.3	43.8	44.5	45.39	43.98	45.33	45.27	44.53	45.78	46.44	45.71	46.75	46.18	47.4	47.46	47.38	47.32	47.4	47.5	47.54	47.58	47.07	47.18
+Max mIoU: 47.58 	Epoch 22
+Training finished successfully!

@@ -1,0 +1,22 @@
+train: 'anet'
+train_data: "../data/ANet/train.json"
+train_featpath: '../data/ANet/c3d_feature'
+
+valid: 'anet'
+val_data: '../data/ANet/val_1.json'
+valid_featpath: '../data/ANet/c3d_feature'
+
+test: 'anet'
+test_data: '../data/ANet/val_2.json'
+test_featpath: '../data/ANet/c3d_feature'
+
+wordtoix_path: '../data/ANet/words/wordtoix.npy'
+ixtoword_path: '../data/ANet/words/ixtoword.npy'
+word_fts_path: '../data/ANet/words/word_glove_fts_init.npy'
+video_feature_dim: 500
+sent_len: 25
+
+feature_type: 'c3d'
+batch_log_interval: 100
+
+video_len: 240

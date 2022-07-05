@@ -1,0 +1,28 @@
+train: 'charades'
+train_data: "../data/Charades-CD/charades_train.json"
+train_featpath: '../data/Charades/i3d_feature'
+
+valid: 'charades'
+val_data: '../data/Charades-CD/charades_val.json'
+valid_featpath: '../data/Charades/i3d_feature'
+
+test: 'charades'
+test_data: '../data/Charades-CD/charades_test_ood.json'
+test_featpath: '../data/Charades/i3d_feature'
+
+wordtoix_path: '../data/Charades/words/wordtoix.npy'
+ixtoword_path: '../data/Charades/words/ixtoword.npy'
+word_fts_path: '../data/Charades/words/word_glove_fts_init.npy'
+
+feature_type: 'i3d'
+video_feature_dim: 1024
+sent_len: 15
+video_len: 128
+
+# lr_step: [15]
+# epoch: 30
+
+runs: runs/charades_cd
+
+# only for testing
+start_from : 'ckp/charades_cd/MDC_MP_128T_i3d_VALval_G1_L1_D1_5_00019.ckp'

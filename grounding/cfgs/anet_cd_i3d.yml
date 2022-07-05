@@ -1,0 +1,30 @@
+train: 'anet'
+train_data: "../data/ANet-CD/anet_train.json"
+train_featpath: '../data/ANet/i3d_feature'
+
+valid: 'anet'
+val_data: '../data/ANet-CD/anet_val.json'
+valid_featpath: '../data/ANet/i3d_feature'
+
+test: 'anet'
+test_data: '../data/ANet-CD/anet_test_ood.json'
+test_featpath: '../data/ANet/i3d_feature'
+
+wordtoix_path: '../data/ANet/words/wordtoix.npy'
+ixtoword_path: '../data/ANet/words/ixtoword.npy'
+word_fts_path: '../data/ANet/words/word_glove_fts_init.npy'
+
+sent_len: 25
+video_len: 240
+
+feature_type: 'i3d'
+video_feature_dim: 1024
+batch_log_interval: 100
+
+lr_step: [15]
+epoch: 25
+
+runs: runs/anet_cd
+
+# only for testing
+start_from : 'ckp/anet_cd/MDC_MP_240T_i3d_VALval_G1_L1_D1_2_00019.ckp'
