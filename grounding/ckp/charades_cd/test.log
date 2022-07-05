@@ -1,9 +1,9 @@
-WARNING:inference(0):use checkpoint: runs/anet_cd/MDC_MP_240T_i3d_VALval_G1_L1_D1_2/model/MDC_MP_240T_i3d_VALval_G1_L1_D1_2_00019.ckp
+WARNING:inference(0):use checkpoint: runs/charades_cd/MDC_MP_128T_i3d_VALval_G1_L1_D1_5/model/MDC_MP_128T_i3d_VALval_G1_L1_D1_5_00019.ckp
 INFO:inference(0):************************************************************************************************************************
-warning: remove test(runs/anet_cd/inference) folder
-INFO:inference(0):Video length, 240 Sentence Length 25
-INFO:inference(0):test_ood, load captioning file, 2450 videos loaded
-INFO:inference(0):vfeat_fn sample_1to1_video_feat
+warning: remove test(runs/charades_cd/inference) folder
+INFO:inference(0):Video length, 128 Sentence Length 15
+INFO:inference(0):test_ood, load captioning file, 1442 videos loaded
+INFO:inference(0):Total 3375 sentences for test_ood
 INFO:inference(0):testing:**********************************************************************************************************
 Model**************************************************************************************************************
 GMD(
@@ -71,19 +71,16 @@ GMD(
     )
   )
 )
-load over. runs/anet_cd/MDC_MP_240T_i3d_VALval_G1_L1_D1_2/model/MDC_MP_240T_i3d_VALval_G1_L1_D1_2_00019.ckp
-Total %d sentences for training/testing 13578
-INFO:inference(0):test: epoch[000], batch[0000/0425], elapsed time=0.09s, loss: 7.979, miou: 0.334
-INFO:inference(0):test: epoch[000], batch[0100/0425], elapsed time=0.07s, loss: 8.903, miou: 0.325
-INFO:inference(0):test: epoch[000], batch[0200/0425], elapsed time=0.07s, loss: 7.186, miou: 0.388
-INFO:inference(0):test: epoch[000], batch[0300/0425], elapsed time=0.07s, loss: 7.203, miou: 0.316
-INFO:inference(0):test: epoch[000], batch[0400/0425], elapsed time=0.07s, loss: 7.344, miou: 0.387
-INFO:inference(0):epoch [000]: elapsed time:35.1385s, avg loss: 8.612, miou: 0.302
+load over. runs/charades_cd/MDC_MP_128T_i3d_VALval_G1_L1_D1_5/model/MDC_MP_128T_i3d_VALval_G1_L1_D1_5_00019.ckp
+INFO:inference(0):test: epoch[000], batch[0000/0106], elapsed time=0.04s, loss: 8.328, miou: 0.411
+INFO:inference(0):test: epoch[000], batch[0050/0106], elapsed time=0.03s, loss: 7.384, miou: 0.455
+INFO:inference(0):test: epoch[000], batch[0100/0106], elapsed time=0.03s, loss: 7.417, miou: 0.409
+INFO:inference(0):epoch [000]: elapsed time:4.9897s, avg loss: 6.800, miou: 0.443
 INFO:inference(0):****************************************************************************************************
-=> Proposal loaded over. runs/anet_cd/inference/submits/inference_00000_anet_test_ood.json
+=> Proposal loaded over. runs/charades_cd/inference/submits/inference_00000_charades_test_ood.json
 	mIoU	 0.1	0.3	0.5	0.7	0.9
 
  => 
-1 	 30.21 	 66.05	42.14	24.58	13.47	4.52
-mIoU	30.2100
+1 	 44.28 	 75.35	63.85	46.84	27.47	6.64
+mIoU	44.2800
 Testing finished successfully!
