@@ -1,4 +1,7 @@
-# ToECCV2022: Can Shuffling Video Benefit Temporal Bias Problem: A Novel Training Framework for Temporal Grounding
+# Can Shuffling Video Benefit Temporal Bias Problem for Temporal Grounding
+
+Code for ECCV 2022 paper "Can Shuffling Video Benefit Temporal Bias Problem: A Novel Training Framework for Temporal Grounding"
+
 
 ## Installation
 We provide the environment file for anaconda.
@@ -13,9 +16,9 @@ You can download our features for Charades-STA and ActivityNet Captions and the 
 
 (For ActivityNet Captions, we extract the i3d features from the original videos using an open implementation of [I3D](https://github.com/piergiaj/pytorch-i3d), with stride 16 and fps 16.)
 
-Please put the video feature files 'VID.npy' into the directories data/Charades/i3d_feature and data/ANet/i3d_feature, respectively.
+Please put the video feature files 'VID.npy' into the directories `data/Charades/i3d_feature` and `data/ANet/i3d_feature`, respectively.
 
-Please put the pretrianed models into the directories grounding/ckp/charades_cd and grounding/ckp/anet_cd, respectively.
+Please put the pretrianed models into the directories `grounding/ckp/charades_cd` and `grounding/ckp/anet_cd`, respectively.
 
 ## Quick Strat
 ```
@@ -24,7 +27,7 @@ cd grounding
 ```
 
 
-###Charades-CD
+### Charades-CD
 
 Train:
 ```
@@ -37,7 +40,7 @@ python test.py --gpu_id=0 --cfg charades_cd_i3d.yml --alias test
 
 You can change the model to be evaluated in the corresponding config file. By default, test.py will use the pre-trained model provided by us.
 
-###ActivityNet-CD
+### ActivityNet-CD
 
 Train:
 ```
@@ -48,15 +51,15 @@ Evaluate:
 python test.py --gpu_id=0 --cfg anet_cd_i3d.yml --alias test
 ```
 
-##About Pretrained Models
+### About Pretrained Models
 
 You can find the corresponding prediction results, parameter setting, and evaluation result files in grounding/ckp for both datasets.
 
 ## Baseline
 
-We also provide the implementation of the baseline.
+We also provide the implementation of the baseline (QAVE).
 
-###Charades-CD
+### Charades-CD
 
 Train:
 ```
@@ -69,7 +72,7 @@ python test_baseline.py --gpu_id=0 --cfg charades_cd_i3d.yml --alias test
 
 Please determine the model to be evaluated in the corresponding config file.
 
-###ActivityNet-CD
+### ActivityNet-CD
 
 Train:
 ```
