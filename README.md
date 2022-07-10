@@ -22,7 +22,7 @@ using an open implementation of [I3D](https://github.com/piergiaj/pytorch-i3d), 
 Please put the video feature files 'VID.npy' into the directories
 `data/Charades/i3d_feature` and `data/ANet/i3d_feature`, respectively.
 
-Please put the pretrianed models into the directories `grounding/ckp/charades_cd` and `grounding/ckp/anet_cd`, respectively.
+Please put the pretrained models into the directories `grounding/ckp/charades_cd` and `grounding/ckp/anet_cd`, respectively.
 #### Word Embeddings
 For Charades-STA, we directly provide the word embeddings files in this github repositories. You don't need to do anything else.
 
