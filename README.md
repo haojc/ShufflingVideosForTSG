@@ -71,7 +71,7 @@ in `grounding/ckp` for both datasets.
 
 ## Baseline
 
-We also provide the implementation of the baseline (QAVE).
+We also provide the implementation of the baseline ([QAVE](https://dl.acm.org/doi/abs/10.1016/j.neucom.2022.01.085)).
 
 ### Charades-CD
 
