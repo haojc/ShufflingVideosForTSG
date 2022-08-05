@@ -1,6 +1,6 @@
 # Can Shuffling Video Benefit Temporal Bias Problem for Temporal Grounding
 
-Code for ECCV 2022 paper "Can Shuffling Video Benefit Temporal Bias Problem: A Novel Training Framework for Temporal Grounding"
+Code for ECCV 2022 paper "Can Shuffling Video Benefit Temporal Bias Problem: A Novel Training Framework for Temporal Grounding" [[arxiv]](https://arxiv.org/abs/2207.14698).
 
 
 ## Installation
