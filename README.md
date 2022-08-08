@@ -96,3 +96,24 @@ Evaluate:
 ```
 python test_baseline.py --gpu_id=0 --cfg anet_cd_i3d.yml --alias test
 ```
+
+## Citation
+Please cite our papers if you find them useful for your research.
+```
+@inproceedings{hao2022shufflevideos,
+  author    = {Hao, Jiachang and Sun, Haifeng and Ren, Pengfei and Wang, Jingyu and Qi, Qi and Liao, Jianxin},
+  title     = {Can Shuffling Video Benefit Temporal Bias Problem: A Novel Training Framework for Temporal Grounding},
+  booktitle = {European Conference on Computer Vision},
+  year      = {2022},
+}
+```
+The baseline QAVE is: 
+```
+@article{hao2022qave,
+  title={Query-Aware Video Encoder for Video Moment Retrieval},
+  author={Hao, Jiachang and Sun, Haifeng and Ren, Pengfei and Wang, Jingyu and Qi, Qi and Liao, Jianxin},
+  journal={Neurocomputing},
+  year={2022},
+  publisher={Elsevier}
+}
+```
