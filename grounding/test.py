@@ -358,7 +358,8 @@ if __name__ == '__main__':
     cfgs_file = os.path.join('cfgs',cfgs_file)
     with open(cfgs_file, 'r') as handle:
         options_yaml = yaml.load(handle, Loader=yaml.FullLoader)
-    update_values(options_yaml, params)
+    # update_values(options_yaml, params)
+    update_values(params, options_yaml)
     # print(params)
 
 
